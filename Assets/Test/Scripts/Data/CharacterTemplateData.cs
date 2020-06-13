@@ -9,4 +9,5 @@ public class CharacterTemplateData : ScriptableObject
     public CharacterObject Prefab;
     [Range(1, 10)]
     public float Speed; //would be generated in future from character stats
+    public List<ItemDefinition> StartingItems;
 }

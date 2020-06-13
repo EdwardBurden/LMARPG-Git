@@ -11,7 +11,8 @@ public class PartyController : MonoBehaviour
     //todo move into somewhere else appropriate
     [SerializeField]
     private PartyTemplateData StartingData = null;
-
+    [SerializeField]
+    private InventoryPanel InventoryPanel = null;
 
 
     private void Start()
@@ -25,8 +26,20 @@ public class PartyController : MonoBehaviour
     {
         SelectedCharacter = partyData.LastSelectedCharacter;
         Characters[SelectedCharacter].CharacterSelected();
+        UpdateInventory();
     }
 
+    private void UpdateInventory()
+    {
+        InventoryPanel.SetCharacter(Characters[SelectedCharacter]);
+        InventoryPanel.Refresh();
+    }
+
+    public CharacterController GetSelectedCharacter()
+    {
+
+        return Characters[SelectedCharacter];
+    }
 
 
     public void LoadParty(PartyData partyData)
@@ -44,6 +57,7 @@ public class PartyController : MonoBehaviour
     {
         SelectedCharacter = Characters.IndexOf(characterController);
         Characters[SelectedCharacter].CharacterSelected();
+        UpdateInventory();
     }
 
     public PartyData ExportToSaveData()
@@ -67,13 +81,21 @@ public class PartyController : MonoBehaviour
         {
             CharacterController newCharController = new CharacterController(charData);
             CharacterObject charObj = Instantiate(newCharController.Prefab, this.transform);
-            charObj.Init(newCharController);
-            charObj.OnClick += CharacterSelected;
-            newCharController.AssignObject(charObj);
-            Characters.Add(newCharController);
             charObj.transform.position = charData.Position;
+
+            SetupCharacter(newCharController, charObj);
         }
 
+    }
+
+    private void SetupCharacter(CharacterController newCharController, CharacterObject charObj)
+    {
+        charObj.Init(newCharController);
+        charObj.OnClick += CharacterSelected;
+        charObj.GetSelectedCharacterEvent += GetSelectedCharacter;
+        newCharController.AssignObject(charObj);
+        newCharController.ItemAdded += UpdateInventory;
+        Characters.Add(newCharController);
     }
 
     private void SpawnCharactersFromTemplate()
@@ -82,10 +104,8 @@ public class PartyController : MonoBehaviour
         {
             CharacterController newCharController = new CharacterController(charData);
             CharacterObject charObj = Instantiate(charData.Prefab, this.transform);
-            charObj.Init(newCharController);
-            charObj.OnClick += CharacterSelected;
-            newCharController.AssignObject(charObj);
-            Characters.Add(newCharController);
+
+            SetupCharacter(newCharController, charObj);
         }
 
     }

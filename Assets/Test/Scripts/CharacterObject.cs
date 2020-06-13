@@ -8,24 +8,22 @@ using Random = UnityEngine.Random;
 
 public class CharacterObject : MonoBehaviour
 {
-    public float MinDistance;
-    public float MaxDistance;
-
-
     [HideInInspector]
     public Vector3 Destination;
 
     [SerializeField]
     private NavMeshAgent Agent;
 
-    private CharacterController Controller;
-
+    private CharacterController _Controller;
+    public CharacterController Controller { get { return _Controller; } }
     public Action<CharacterController> OnClick;
+    public delegate CharacterController GetCharacter();
+    public event GetCharacter GetSelectedCharacterEvent;
 
     public void Init(CharacterController characterController)
     {
         Agent.speed = characterController.GetCharacterSpeed();
-        Controller = characterController;
+        _Controller = characterController;
     }
 
     private void Start()
@@ -40,5 +38,18 @@ public class CharacterObject : MonoBehaviour
         OnClick(Controller);
     }
 
+    private void FollowSelected()
+    {
+        CharacterController selectd = GetSelectedCharacterEvent();
+        if (selectd != null && selectd != Controller)
+            Destination = GetSelectedCharacterEvent().CObject.transform.position;
+
+    }
+
+    private void Update()
+    {
+        FollowSelected();
+        Agent.SetDestination(Destination);
+    }
 
 }
