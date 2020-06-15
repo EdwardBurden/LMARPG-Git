@@ -4,11 +4,45 @@ using UnityEngine;
 
 public class BattleManager : MonoBehaviour
 {
-    public List<BattleCharacter> Characters = new List<BattleCharacter>();
     [SerializeField] BattleGrid BattleGrid;
+
+    public bool Mode;
+
 
     private void Update()
     {
-        BattleGrid.AlignObjects(Characters);
+        if (Input.GetKeyUp(KeyCode.T)) {
+            SwitchMode();
+        }
     }
+
+
+
+    public void SwitchMode()
+    {
+        Mode = !Mode;
+        if (Mode)
+        {
+            BattleGrid.Activate();
+            BattleGrid.gameObject.SetActive(true);
+        }
+        else
+            BattleGrid.gameObject.SetActive(false);
+    }
+
+    public void HandleMovement(BattleCharacter character, Vector3 targte)
+    {
+        if (Mode)
+        {
+            //grid
+        }
+        else
+        {
+            character.MoveTo(targte);
+        }
+
+
+    }
+
+
 }
