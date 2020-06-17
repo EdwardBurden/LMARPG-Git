@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Inputmanager;
 
 public struct BattleNode
 {
@@ -25,27 +26,31 @@ public class BattleGrid : MonoBehaviour
     public float GridSize = 1;
 
     public float MaxAlignmentDistance = 100;
+    private float RaycastHeight = 3;
 
-    List<Vector3> Cubes = new List<Vector3>();
+    private List<PlayerCharcater> PCharacter;
 
-    public List<BattleCharacter> BattleCharacter = new List<BattleCharacter>();
-
-    public void Activate()
+    public void Activate(List<PlayerCharcater> playerCharcater)
     {
+        PCharacter = playerCharcater;
         SetupGrid();
         AlignObjects();
     }
 
     private void SetupGrid()
     {
-        Cubes = new List<Vector3>();
         CustomGrid = new BattleNode[Width, Depth];
         Vector2 offset = new Vector2(this.transform.position.x - ((Width / 2) * GridSize), this.transform.position.z - ((Depth / 2) * GridSize));
         for (int i = 0; i < Width; i++)
         {
             for (int j = 0; j < Depth; j++)
             {
-                CustomGrid[i, j] = new BattleNode(new Vector2(offset.x + (i * GridSize), offset.y + (j * GridSize)), true, true);
+                Vector2 flatPosition = new Vector2(offset.x + (i * GridSize), offset.y + (j * GridSize));
+                Vector3 rayCastOrigin = new Vector3(flatPosition.x, RaycastHeight, flatPosition.y);
+                RaycastHit floorHit;
+                bool hit = Physics.Raycast(rayCastOrigin, Vector3.down, out floorHit);
+                bool walkable = hit && floorHit.collider.gameObject.tag == "Floor";
+                CustomGrid[i, j] = new BattleNode(flatPosition, walkable, true);
             }
         }
     }
@@ -57,19 +62,14 @@ public class BattleGrid : MonoBehaviour
             for (int j = 0; j < Depth; j++)
             {
                 Gizmos.color = Color.red;
-
-                Gizmos.DrawCube(new Vector3(CustomGrid[i, j].Position.x, 0, CustomGrid[i, j].Position.y), Vector3.one * GridSize);
+                if (CustomGrid[i, j].Walkable)
+                    Gizmos.DrawCube(new Vector3(CustomGrid[i, j].Position.x, 0, CustomGrid[i, j].Position.y), Vector3.one * GridSize);
             }
-        }
-        foreach (var item in Cubes)
-        {
-            Gizmos.color = Color.blue;
-            Gizmos.DrawCube(item, Vector3.one * GridSize);
         }
     }
 
 
-    private Vector2 GetArrayPositionFromWorldPosition(Vector3 worldPos)
+    private Vector2 GetCharactersClosestValidArrayPosition(Vector3 worldPos)
     {
         float distMax = MaxAlignmentDistance;
         int x = 0, y = 0;
@@ -78,7 +78,7 @@ public class BattleGrid : MonoBehaviour
             for (int j = 0; j < Depth; j++)
             {
                 float dist = Vector2.Distance(new Vector2(worldPos.x, worldPos.z), CustomGrid[i, j].Position);
-                if (dist < distMax && CustomGrid[i, j].Vacant)
+                if (dist < distMax && CustomGrid[i, j].Vacant && CustomGrid[i, j].Walkable)
                 {
                     distMax = dist;
                     x = i;
@@ -86,20 +86,16 @@ public class BattleGrid : MonoBehaviour
                 }
             }
         }
-        CustomGrid[x, y].Vacant = false;
         return new Vector2(x, y);
     }
 
     public void AlignObjects()
     {
-        Cubes = new List<Vector3>();
-        foreach (var item in BattleCharacter)
+        foreach (var item in PCharacter)
         {
-            CustomGrid[(int)item.ArrayPosition.x, (int)item.ArrayPosition.y].Vacant = true;
-            Vector2 arrarypos = GetArrayPositionFromWorldPosition(item.transform.position);
+            Vector2 arrarypos = GetCharactersClosestValidArrayPosition(item.transform.position);
             CustomGrid[(int)arrarypos.x, (int)arrarypos.y].Vacant = false;
             Vector2 pos = new Vector2(CustomGrid[(int)arrarypos.x, (int)arrarypos.y].Position.x, CustomGrid[(int)arrarypos.x, (int)arrarypos.y].Position.y);
-            Cubes.Add(new Vector3(pos.x, 0, pos.y));
             item.MoveTo(new Vector3(pos.x, 0, pos.y));
         }
     }

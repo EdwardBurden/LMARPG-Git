@@ -23,7 +23,7 @@ public class BattleManager : MonoBehaviour
         Mode = !Mode;
         if (Mode)
         {
-            BattleGrid.Activate();
+          //  BattleGrid.Activate();
             BattleGrid.gameObject.SetActive(true);
         }
         else

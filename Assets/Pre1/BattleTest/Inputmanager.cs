@@ -89,15 +89,7 @@ public class Inputmanager : MonoBehaviour
                 }
                 else
                 {
-                    foundobject = raycasts[i].collider.gameObject.GetComponentInParent<T>();
-                    if (foundobject)
-                    {
-                        inSight = true;
-                        hit = raycasts[i];
-                        foundObject = foundobject;
-                    }
-                    else
-                        inSight = false;
+                    inSight = false;
                 }
 
             }

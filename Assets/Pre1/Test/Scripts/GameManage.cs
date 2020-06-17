@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManage : MonoBehaviour
 {
+    [SerializeField] private GameObject RoamSetup;
+    [SerializeField] private GameObject BattleSetup;
+
     public PartyController PartyController;
 
     private void Update()
