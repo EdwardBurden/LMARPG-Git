@@ -6,13 +6,13 @@ using static Inputmanager;
 
 public struct BattleNode
 {
-    public Vector2 Position;
+    public Vector3 CentrePosition;
     public bool Walkable;
     public bool Vacant;
 
-    public BattleNode(Vector2 position, bool walkable, bool vacant)
+    public BattleNode(Vector3 position, bool walkable, bool vacant)
     {
-        Position = position;
+        CentrePosition = position;
         Walkable = walkable;
         Vacant = vacant;
     }
@@ -48,9 +48,20 @@ public class BattleGrid : MonoBehaviour
                 Vector2 flatPosition = new Vector2(offset.x + (i * GridSize), offset.y + (j * GridSize));
                 Vector3 rayCastOrigin = new Vector3(flatPosition.x, RaycastHeight, flatPosition.y);
                 RaycastHit floorHit;
-                bool hit = Physics.Raycast(rayCastOrigin, Vector3.down, out floorHit);
+                int layerMask = 1 << 8;
+                layerMask = ~layerMask;//TODO use better raycast technique
+                bool hit = Physics.Raycast(rayCastOrigin, Vector3.down, out floorHit, 100, layerMask);
                 bool walkable = hit && floorHit.collider.gameObject.tag == "Floor";
-                CustomGrid[i, j] = new BattleNode(flatPosition, walkable, true);
+                Vector3 heightPos;
+                if (walkable)
+                {
+                    heightPos = floorHit.point;
+                }
+                else
+                {
+                    heightPos = new Vector3(flatPosition.x, 0, flatPosition.y);
+                }
+                CustomGrid[i, j] = new BattleNode(heightPos, walkable, true);
             }
         }
     }
@@ -63,7 +74,7 @@ public class BattleGrid : MonoBehaviour
             {
                 Gizmos.color = Color.red;
                 if (CustomGrid[i, j].Walkable)
-                    Gizmos.DrawCube(new Vector3(CustomGrid[i, j].Position.x, 0, CustomGrid[i, j].Position.y), Vector3.one * GridSize);
+                    Gizmos.DrawCube(CustomGrid[i, j].CentrePosition, Vector3.one * 0.4f);
             }
         }
     }
@@ -77,7 +88,7 @@ public class BattleGrid : MonoBehaviour
         {
             for (int j = 0; j < Depth; j++)
             {
-                float dist = Vector2.Distance(new Vector2(worldPos.x, worldPos.z), CustomGrid[i, j].Position);
+                float dist = Vector3.Distance(worldPos, CustomGrid[i, j].CentrePosition);
                 if (dist < distMax && CustomGrid[i, j].Vacant && CustomGrid[i, j].Walkable)
                 {
                     distMax = dist;
@@ -95,8 +106,7 @@ public class BattleGrid : MonoBehaviour
         {
             Vector2 arrarypos = GetCharactersClosestValidArrayPosition(item.transform.position);
             CustomGrid[(int)arrarypos.x, (int)arrarypos.y].Vacant = false;
-            Vector2 pos = new Vector2(CustomGrid[(int)arrarypos.x, (int)arrarypos.y].Position.x, CustomGrid[(int)arrarypos.x, (int)arrarypos.y].Position.y);
-            item.MoveTo(new Vector3(pos.x, 0, pos.y));
+            item.MoveTo(CustomGrid[(int)arrarypos.x, (int)arrarypos.y].CentrePosition);
         }
     }
 }

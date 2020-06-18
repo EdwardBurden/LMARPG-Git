@@ -5,10 +5,12 @@ using UnityEngine.Events;
 
 public class BattleTrigger : MonoBehaviour
 {
-    [SerializeField] private BasicEvent OnTriggerEvent;
+    [SerializeField] private TransformUnityEvent OnTriggerEvent;
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.GetComponent<PlayerCharcater>())
-            OnTriggerEvent.Raise();
+        {
+            OnTriggerEvent.Invoke(this.transform);
+        }
     }
 }

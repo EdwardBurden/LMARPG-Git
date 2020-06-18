@@ -17,10 +17,10 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void SwitchToBattleSetup()
+    public void SwitchToBattleSetup(Transform triggertransform)
     {
         Destroy(ActiveInput.gameObject);
-        ActiveInput = Instantiate(BattleSetup);
+        ActiveInput = GameObject.Instantiate(BattleSetup, triggertransform.position, triggertransform.rotation, null);
         ActiveInput.gameObject.GetComponent<BattleGrid>().Activate(PlayerCharacters);
     }
 

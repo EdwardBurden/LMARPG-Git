@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dd7249af3ff7a947be352583e3b3371, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Width: 30
-  Depth: 30
-  GridSize: 1
+  Width: 50
+  Depth: 50
+  GridSize: 2
   MaxAlignmentDistance: 100
