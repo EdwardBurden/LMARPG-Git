@@ -25,5 +25,6 @@ public class BattlePlayerCharacterState : BasePlayerCharacterState
     public override void Move(Vector3 position)
     {
         //todo a* to target through grid
+        Player.NavMesh.SetDestination(position);
     }
 }

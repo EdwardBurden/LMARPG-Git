@@ -42,4 +42,9 @@ public class PlayerCharcater : MonoBehaviour
         if ((RoamPlayerCharacterState)State != null)
             ((RoamPlayerCharacterState)State).SetFollow(leader);
     }
+
+    public bool CanMoveTo(Vector3 centrePosition)
+    {
+        return State.CanMove(centrePosition);
+    }
 }

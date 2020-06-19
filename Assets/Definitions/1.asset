@@ -15,3 +15,4 @@ MonoBehaviour:
   Name: Peter
   Icon: {fileID: 21300000, guid: 95aef9eaa89cf4876ac563c8243b1f03, type: 3}
   TestMaterial: {fileID: 2100000, guid: c5ec5ba7df6864cfea225676cf663f61, type: 2}
+  MovementRange: 5

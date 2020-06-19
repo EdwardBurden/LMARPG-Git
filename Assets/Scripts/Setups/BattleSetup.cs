@@ -42,7 +42,7 @@ public class BattleSetup : BaseSetup
     {
         BattleNode node = Grid.GetNodeAtWorldPosition(hoverPoint);
         //this is for testing only, character movemtn todo later
-        if (node.Walkable)
+        if (node.Walkable && character.CanMoveTo(node.CentrePosition))
             character.MoveTo(node.CentrePosition);
     }
 }
