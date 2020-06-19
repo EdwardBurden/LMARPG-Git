@@ -17,6 +17,10 @@ public class RoamSetup : BaseSetup
         Input.ChangeSelectCharacter(Manager.ActiveCharacter);
         UI = Instantiate(UIPrefab);
         UI.Init(Manager.GetPartyCharacters(), this);
+        foreach (var item in Manager.Characters)
+        {
+            item.ChangeToRoam();
+        }
     }
 
     public override void Deactivate()
@@ -42,7 +46,7 @@ public class RoamSetup : BaseSetup
         {
             if (charcater != playerCharcater)
             {
-                charcater.SetFollow(playerCharcater.gameObject);
+                charcater.Follow(playerCharcater.gameObject);
             }
         }
 

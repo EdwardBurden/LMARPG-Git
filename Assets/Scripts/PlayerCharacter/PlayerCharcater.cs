@@ -2,47 +2,44 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System;
 
 public class PlayerCharcater : MonoBehaviour
 {
-    [SerializeField] private NavMeshAgent NavMesh;
+    public NavMeshAgent NavMesh;
     public PlayerCharacterDefinition Definition;
-    bool Follow;
-    GameObject FollowTarget;
+    private BasePlayerCharacterState State;
 
     private void Start()
     {
+        State = new RoamPlayerCharacterState(this); //todo move toa init call
         this.GetComponent<MeshRenderer>().material = Definition.TestMaterial;
         this.name = Definition.Name;
     }
 
+    public void ChangeToRoam()
+    {
+        State = new RoamPlayerCharacterState(this);
+    }
+
+    public void ChangeToBattle()
+    {
+        State = new BattlePlayerCharacterState(this);
+    }
+
     private void Update()
     {
-        //roam, move to state system
-        if (Follow && FollowTarget)
-        {
-            NavMesh.SetDestination(FollowTarget.transform.position);
-        }
-
+        State.HandleUpdate();
     }
 
-    public void UnSetFollow()
+    public void MoveTo(Vector3 pos)
     {
-        Follow = false;
-        FollowTarget = null;
-        NavMesh.stoppingDistance = 0;
+        State.Move(pos);
     }
 
-    public void SetFollow(GameObject gameObject)
+    public void Follow(GameObject leader)
     {
-        Follow = true;
-        FollowTarget = gameObject;
-        NavMesh.stoppingDistance = 2;
-    }
-
-    public void MoveTo(Vector3 dest)
-    {
-        UnSetFollow();
-        NavMesh.SetDestination(dest);
+        if ((RoamPlayerCharacterState)State != null)
+            ((RoamPlayerCharacterState)State).SetFollow(leader);
     }
 }

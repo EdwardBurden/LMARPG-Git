@@ -8,4 +8,5 @@ public class PlayerCharacterDefinition : ScriptableObject
     public string Name;
     public Sprite Icon;
     public Material TestMaterial;
+    public int MovementRange;
 }

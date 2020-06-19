@@ -22,6 +22,10 @@ public class BattleSetup : BaseSetup
     {
         Grid.Activate(Manager.GetPartyCharacters());
         Input.ChangeSelectCharacter(Manager.ActiveCharacter);
+        foreach (var item in Manager.Characters)
+        {
+            item.ChangeToBattle();
+        }
     }
 
     public override void Deactivate()
