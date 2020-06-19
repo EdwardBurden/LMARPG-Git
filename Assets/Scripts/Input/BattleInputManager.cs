@@ -1,22 +1,48 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static StaticFunctions;
 
 public class BattleInputManager : BaseInputManager
 {
+    private BattleSetup Setup;
+
+    public void Init(BattleSetup setup)
+    {
+        Setup = setup;
+    }
+
+    private Vector3 HoverPoint;
+
     public override void ChangeSelectCharacter(PlayerCharcater newCharacter)
     {
-       // throw new System.NotImplementedException();
+        SelectedPlayerCharacter = newCharacter;
     }
 
     protected override void HandleClick()
     {
-       // throw new System.NotImplementedException();
+        if (Input.GetMouseButtonUp(0))
+        {
+            if (SelectedPlayerCharacter)
+            {
+                RaycastHit floorHit = CheckIfObjectIsInFocus("Floor");
+                if (floorHit.collider != null)
+                {
+                    Setup.MoveCharcaterToGridPosition(HoverPoint , SelectedPlayerCharacter);
+                }
+            }
+        }
     }
 
     protected override void HandleHover()
     {
-       // throw new System.NotImplementedException();
+        RaycastHit floorHit = CheckIfObjectIsInFocus("Floor");
+        if (floorHit.collider != null)
+        {
+            HoverPoint = floorHit.point;
+            Setup.UpdateGridHoverPosition(HoverPoint);
+        }
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
     }
 
 }

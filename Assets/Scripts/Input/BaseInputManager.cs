@@ -4,15 +4,10 @@ using UnityEngine;
 
 public abstract class BaseInputManager : MonoBehaviour
 {
-   protected GameManager Manager;
+
     [SerializeField] protected Texture2D SuccessTexture;
     [SerializeField] protected Texture2D FailureTexture;
     protected PlayerCharcater SelectedPlayerCharacter;
-
-    public void Init(GameManager manager)
-    {
-        Manager = manager;
-    }
 
     public abstract void ChangeSelectCharacter(PlayerCharcater newCharacter);
 

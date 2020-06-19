@@ -26,9 +26,11 @@ public class BattleGrid : MonoBehaviour
     public float GridSize = 1;
 
     public float MaxAlignmentDistance = 100;
-    private float RaycastHeight = 3;
+    private float RaycastHeight = 10;
 
     private List<PlayerCharcater> PCharacter;
+
+    private BattleNode HoveredGrid;
 
     public void Activate(List<PlayerCharcater> playerCharcater)
     {
@@ -77,6 +79,28 @@ public class BattleGrid : MonoBehaviour
                     Gizmos.DrawCube(CustomGrid[i, j].CentrePosition, Vector3.one * 0.4f);
             }
         }
+        Gizmos.color = Color.blue;
+        if (HoveredGrid.Walkable)
+            Gizmos.DrawCube(HoveredGrid.CentrePosition + Vector3.up, Vector3.one);
+    }
+
+    public BattleNode GetNodeAtWorldPosition(Vector3 worldposition)
+    {
+        Vector2 minMPosition = new Vector2(this.transform.position.x - ((Width / 2) * GridSize), this.transform.position.z - ((Depth / 2) * GridSize));
+        Vector2 maxPosition = new Vector2(minMPosition.x + (Width * GridSize), minMPosition.y + (Depth * GridSize));
+
+        float xPercent = (worldposition.x - minMPosition.x) / (maxPosition.x - minMPosition.x);
+        float zPercent = (worldposition.z - minMPosition.y) / (maxPosition.y - minMPosition.y);
+
+        int x = Mathf.Clamp(Mathf.RoundToInt(xPercent * Width), 0, Width - 1);
+        int y = Mathf.Clamp(Mathf.RoundToInt(zPercent * Depth), 0, Depth - 1);
+
+        return CustomGrid[x, y];
+    }
+
+    public void UpdateHoverGridPosition(Vector3 hoverPosition)
+    {
+        HoveredGrid = GetNodeAtWorldPosition(hoverPosition);
     }
 
 

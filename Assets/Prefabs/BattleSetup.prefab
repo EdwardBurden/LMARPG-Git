@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2939168903090946618}
   - component: {fileID: 2939168903090946613}
   - component: {fileID: 9125062530303255472}
+  - component: {fileID: 3371012192340726501}
   m_Layer: 0
   m_Name: BattleSetup
   m_TagString: Untagged
@@ -58,7 +59,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dd7249af3ff7a947be352583e3b3371, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Width: 50
-  Depth: 50
+  Width: 10
+  Depth: 10
   GridSize: 2
   MaxAlignmentDistance: 100
+--- !u!114 &3371012192340726501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2939168903090946612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46f1e7b5db34041f19849cc26a04bade, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Input: {fileID: 2939168903090946613}
+  Grid: {fileID: 9125062530303255472}

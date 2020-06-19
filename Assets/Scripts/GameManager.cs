@@ -1,28 +1,32 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private BaseInputManager ActiveInput;
-    [SerializeField] private BaseInputManager RoamSetup;
-    [SerializeField] private BaseInputManager BattleSetup;
-    [SerializeField] private PlayerCharcater ActivePlayerCharacter;
-    [SerializeField] private List<PlayerCharcater> PlayerCharacters;
+    [SerializeField] private BaseSetup ActiveSetup;
+    [SerializeField] private RoamSetup RoamSetup;
+    [SerializeField] private BattleSetup BattleSetup;
+    [SerializeField] public PlayerCharcater ActivePlayerCharacter;
+    [SerializeField] public List<PlayerCharcater> PlayerCharacters;
 
     public void Start()
     {
-        ActiveInput.Init(this);
-        ActiveInput.ChangeSelectCharacter(ActivePlayerCharacter);
-
+        ActiveSetup.Init(this);
+        ActiveSetup.Activate();
     }
 
     public void SwitchToBattleSetup(Transform triggertransform)
     {
-        Destroy(ActiveInput.gameObject);
-        ActiveInput = GameObject.Instantiate(BattleSetup, triggertransform.position, triggertransform.rotation, null);
-        ActiveInput.gameObject.GetComponent<BattleGrid>().Activate(PlayerCharacters);
+        ActiveSetup.Deactivate();
+        Destroy(ActiveSetup.gameObject);
+        ActiveSetup = GameObject.Instantiate(BattleSetup, triggertransform.position, triggertransform.rotation, null);
+        ActiveSetup.Init(this);
+        ActiveSetup.Activate();
     }
+
+
 
     private void Update()
     {
@@ -35,9 +39,10 @@ public class GameManager : MonoBehaviour
 
     public void SwitchToRoamSetup()
     {
-        Destroy(ActiveInput.gameObject);
-        ActiveInput = Instantiate(RoamSetup);
-        ActiveInput.Init(this);
-        ActiveInput.ChangeSelectCharacter(ActivePlayerCharacter);
+        ActiveSetup.Deactivate();
+        Destroy(ActiveSetup.gameObject);
+        ActiveSetup = Instantiate(RoamSetup);
+        ActiveSetup.Init(this);
+        ActiveSetup.Activate();
     }
 }

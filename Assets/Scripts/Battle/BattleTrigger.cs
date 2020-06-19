@@ -11,6 +11,8 @@ public class BattleTrigger : MonoBehaviour
         if (other.gameObject.GetComponent<PlayerCharcater>())
         {
             OnTriggerEvent.Invoke(this.transform);
+            GetComponent<Collider>().enabled = false;
+            Destroy(this.gameObject);
         }
     }
 }

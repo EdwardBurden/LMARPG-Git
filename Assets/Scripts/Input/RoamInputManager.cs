@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Inputmanager;
+using static StaticFunctions;
 
 public class RoamInputManager : BaseInputManager
 {
