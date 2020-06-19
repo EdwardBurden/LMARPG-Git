@@ -59,9 +59,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dd7249af3ff7a947be352583e3b3371, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Width: 10
-  Depth: 10
-  GridSize: 2
+  FloorOnlyLayerMask:
+    serializedVersion: 2
+    m_Bits: 512
+  StaticObstaclesLayerMask:
+    serializedVersion: 2
+    m_Bits: 55
+  Width: 30
+  Depth: 30
+  GridSize: 1
   MaxAlignmentDistance: 100
 --- !u!114 &3371012192340726501
 MonoBehaviour:

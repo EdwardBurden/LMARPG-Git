@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Inputmanager;
+using static StaticFunctions;
 
 public struct BattleNode
 {
@@ -20,6 +20,9 @@ public struct BattleNode
 
 public class BattleGrid : MonoBehaviour
 {
+
+    public LayerMask FloorOnlyLayerMask;
+    public LayerMask StaticObstaclesLayerMask;
     public int Width = 10;
     public int Depth = 10;
     public BattleNode[,] CustomGrid = new BattleNode[100, 100];
@@ -50,10 +53,8 @@ public class BattleGrid : MonoBehaviour
                 Vector2 flatPosition = new Vector2(offset.x + (i * GridSize), offset.y + (j * GridSize));
                 Vector3 rayCastOrigin = new Vector3(flatPosition.x, RaycastHeight, flatPosition.y);
                 RaycastHit floorHit;
-                int layerMask = 1 << 8;
-                layerMask = ~layerMask;//TODO use better raycast technique
-                bool hit = Physics.Raycast(rayCastOrigin, Vector3.down, out floorHit, 100, layerMask);
-                bool walkable = hit && floorHit.collider.gameObject.tag == "Floor";
+                bool hit = Physics.Raycast(rayCastOrigin, Vector3.down, out floorHit, 100, FloorOnlyLayerMask);
+                bool walkable = hit && floorHit.collider.gameObject.tag == "Floor" && !Physics.CheckSphere(floorHit.point, GridSize, StaticObstaclesLayerMask);
                 Vector3 heightPos;
                 if (walkable)
                 {

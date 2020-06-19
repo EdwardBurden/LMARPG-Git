@@ -59,3 +59,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Input: {fileID: 5497489052854390437}
+  UIPrefab: {fileID: 7781205918145751692, guid: f5aa8e0ce43a847f1adb3f611c436842,
+    type: 3}

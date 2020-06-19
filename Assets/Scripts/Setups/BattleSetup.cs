@@ -20,8 +20,8 @@ public class BattleSetup : BaseSetup
 
     public override void Activate()
     {
-        Grid.Activate(Manager.PlayerCharacters);
-        Input.ChangeSelectCharacter(Manager.ActivePlayerCharacter);
+        Grid.Activate(Manager.GetPartyCharacters());
+        Input.ChangeSelectCharacter(Manager.ActiveCharacter);
     }
 
     public override void Deactivate()
@@ -37,6 +37,8 @@ public class BattleSetup : BaseSetup
     public void MoveCharcaterToGridPosition(Vector3 hoverPoint, PlayerCharcater character)
     {
         BattleNode node = Grid.GetNodeAtWorldPosition(hoverPoint);
-        character.MoveTo(node.CentrePosition);
+        //this is for testing only, character movemtn todo later
+        if (node.Walkable)
+            character.MoveTo(node.CentrePosition);
     }
 }

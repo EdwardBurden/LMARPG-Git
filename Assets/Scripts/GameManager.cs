@@ -5,11 +5,19 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance;
+
     [SerializeField] private BaseSetup ActiveSetup;
     [SerializeField] private RoamSetup RoamSetup;
     [SerializeField] private BattleSetup BattleSetup;
-    [SerializeField] public PlayerCharcater ActivePlayerCharacter;
-    [SerializeField] public List<PlayerCharcater> PlayerCharacters;
+    [SerializeField] private PartyController Party;
+    public PlayerCharcater ActiveCharacter { get { return Party.ActivePlayerCharacter; } set { Party.ActivePlayerCharacter = value; } }
+    public List<PlayerCharcater> Characters { get { return Party.PlayerCharacters; } set { Party.PlayerCharacters = value; } }
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     public void Start()
     {
@@ -25,8 +33,6 @@ public class GameManager : MonoBehaviour
         ActiveSetup.Init(this);
         ActiveSetup.Activate();
     }
-
-
 
     private void Update()
     {
@@ -44,5 +50,10 @@ public class GameManager : MonoBehaviour
         ActiveSetup = Instantiate(RoamSetup);
         ActiveSetup.Init(this);
         ActiveSetup.Activate();
+    }
+
+    public List<PlayerCharcater> GetPartyCharacters()
+    {
+        return Party.PlayerCharacters;
     }
 }

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7152573449531355741}
   - component: {fileID: 7152573449531355742}
-  - component: {fileID: 993702706}
+  - component: {fileID: 2042568852}
   m_Layer: 0
   m_Name: GameManagement
   m_TagString: Untagged
@@ -44,16 +44,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b03fb116265a0848909d08dcd1e69b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActiveInput: {fileID: 0}
-  RoamSetup: {fileID: 5497489052854390437, guid: 060296b0717ffdd4eb1850c2640b0d0c,
+  ActiveSetup: {fileID: 0}
+  RoamSetup: {fileID: 1004423052873252735, guid: 060296b0717ffdd4eb1850c2640b0d0c,
     type: 3}
-  BattleSetup: {fileID: 2939168903090946613, guid: b7636a2cecb1e5642b35ed3b68e25afb,
+  BattleSetup: {fileID: 3371012192340726501, guid: b7636a2cecb1e5642b35ed3b68e25afb,
     type: 3}
-  ActivePlayerCharacter: {fileID: 0}
-  PlayerCharacters:
-  - {fileID: 0}
-  - {fileID: 0}
---- !u!114 &993702706
+  Party: {fileID: 0}
+--- !u!114 &2042568852
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -62,16 +59,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 7152573449531355743}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1e50add088d046439c27b50d80b8a87, type: 3}
+  m_Script: {fileID: 11500000, guid: fe20028a6e4525f4dbc47736bea24d14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Event: {fileID: 11400000, guid: 39b76bce6873a184bb50ad452f68c7fc, type: 2}
+  Event: {fileID: 11400000, guid: 95fda468c8d2bee4c88b83bfa1961001, type: 2}
   Response:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7152573449531355742}
         m_MethodName: SwitchToBattleSetup
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

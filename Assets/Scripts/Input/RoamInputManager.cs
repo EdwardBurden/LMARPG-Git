@@ -1,10 +1,19 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static StaticFunctions;
 
 public class RoamInputManager : BaseInputManager
 {
+    private RoamSetup Setup;
+
+    public void Init(RoamSetup setup)
+    {
+        Setup = setup;
+    }
+    public Action<PlayerCharcater,Vector3> MoveCharcater;
+
     protected override void HandleClick()
     {
         if (Input.GetMouseButtonUp(0))
@@ -14,7 +23,7 @@ public class RoamInputManager : BaseInputManager
                 RaycastHit floorHit = CheckIfObjectIsInFocus("Floor");
                 if (floorHit.collider != null)
                 {
-                    SelectedPlayerCharacter.MoveTo(floorHit.point);
+                    MoveCharcater(SelectedPlayerCharacter, floorHit.point);
                 }
             }
         }
