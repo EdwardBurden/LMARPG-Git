@@ -15,3 +15,5 @@ MonoBehaviour:
   Name: Mark
   Icon: {fileID: 21300000, guid: f8657ec70b46b4cf6a5cb46fe3df4025, type: 3}
   TestMaterial: {fileID: 2100000, guid: dc239661c829d4a0b983d91ecba00b86, type: 2}
+  MovementRange: 5
+  initiative: 0
