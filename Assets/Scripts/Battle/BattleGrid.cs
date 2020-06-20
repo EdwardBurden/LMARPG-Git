@@ -20,7 +20,6 @@ public struct BattleNode
 
 public class BattleGrid : MonoBehaviour
 {
-
     public LayerMask FloorOnlyLayerMask;
     public LayerMask StaticObstaclesLayerMask;
     public int Width = 10;
@@ -31,13 +30,13 @@ public class BattleGrid : MonoBehaviour
     public float MaxAlignmentDistance = 100;
     private float RaycastHeight = 10;
 
-    private List<PlayerCharcater> PCharacter;
-
+    private List<PlayerCharcater> Players;
     private BattleNode HoveredGrid;
+    public List<BattleNode> SelectedCharactersMoveableArea = new List<BattleNode>();
 
-    public void Activate(List<PlayerCharcater> playerCharcater)
+    public void Activate(List<PlayerCharcater> players)
     {
-        PCharacter = playerCharcater;
+        Players = players;
         SetupGrid();
         AlignObjects();
     }
@@ -82,10 +81,64 @@ public class BattleGrid : MonoBehaviour
         }
         Gizmos.color = Color.blue;
         if (HoveredGrid.Walkable)
-            Gizmos.DrawCube(HoveredGrid.CentrePosition + Vector3.up, Vector3.one);
+            Gizmos.DrawSphere(HoveredGrid.CentrePosition + Vector3.up, 0.4f);
+
+        foreach (var item in SelectedCharactersMoveableArea)
+        {
+            Gizmos.color = Color.yellow;
+            if (item.Walkable)
+                Gizmos.DrawCube(item.CentrePosition + Vector3.up, Vector3.one * 0.4f);
+        }
+    }
+
+    public void GetAvailableMovementNodes(BattleOrder playerCharcater)
+    {
+        int maxRange = playerCharcater.Character.Definition.MovementRange;
+        SelectedCharactersMoveableArea = new List<BattleNode>();
+        Vector2 node = GetArraryPositionAtWorldPosition(playerCharcater.Character.transform.position);
+        for (int i = -maxRange; i <= maxRange; i++)
+        {
+            for (int j = -maxRange; j <= maxRange; j++)
+            {
+                int x = (int)node.x + i;
+                int z = (int)node.y + j;
+                if ((x > 0 && x < Width) && (z > 0 && z < Depth))
+                {
+                    float d = Vector3.Distance(playerCharcater.Character.transform.position, CustomGrid[x, z].CentrePosition);
+                    if (CustomGrid[x, z].Walkable && CustomGrid[x, z].Vacant && d < maxRange)
+                    {
+                        SelectedCharactersMoveableArea.Add(CustomGrid[x, z]);
+                    }
+                }
+            }
+        }
+    }
+
+    public bool CanMoveCharcaterOnGrid(PlayerCharcater character, Vector3 target)
+    {
+        BattleNode node = GetNodeAtWorldPosition(target);
+        return SelectedCharactersMoveableArea.Contains(node);
+
+    }
+
+    public void MoveCharacterOnGrid(PlayerCharcater character, Vector3 target)
+    {
+        Vector2 arrraypos = GetArraryPositionAtWorldPosition(character.transform.position);
+        CustomGrid[(int)arrraypos.x, (int)arrraypos.y].Vacant = true;
+
+        arrraypos = GetArraryPositionAtWorldPosition(target);
+        character.MoveTo(CustomGrid[(int)arrraypos.x, (int)arrraypos.y].CentrePosition);
+        CustomGrid[(int)arrraypos.x, (int)arrraypos.y].Vacant = false;
     }
 
     public BattleNode GetNodeAtWorldPosition(Vector3 worldposition)
+    {
+        Vector2 arrraypos = GetArraryPositionAtWorldPosition(worldposition);
+        return CustomGrid[(int)arrraypos.x, (int)arrraypos.y];
+    }
+
+
+    private Vector2 GetArraryPositionAtWorldPosition(Vector3 worldposition)
     {
         Vector2 minMPosition = new Vector2(this.transform.position.x - ((Width / 2) * GridSize), this.transform.position.z - ((Depth / 2) * GridSize));
         Vector2 maxPosition = new Vector2(minMPosition.x + (Width * GridSize), minMPosition.y + (Depth * GridSize));
@@ -96,12 +149,13 @@ public class BattleGrid : MonoBehaviour
         int x = Mathf.Clamp(Mathf.RoundToInt(xPercent * Width), 0, Width - 1);
         int y = Mathf.Clamp(Mathf.RoundToInt(zPercent * Depth), 0, Depth - 1);
 
-        return CustomGrid[x, y];
+        return new Vector2(x, y);
     }
 
     public void UpdateHoverGridPosition(Vector3 hoverPosition)
     {
-        HoveredGrid = GetNodeAtWorldPosition(hoverPosition);
+        Vector2 arrraypos = GetArraryPositionAtWorldPosition(hoverPosition);
+        HoveredGrid = CustomGrid[(int)arrraypos.x, (int)arrraypos.y];
     }
 
 
@@ -125,9 +179,9 @@ public class BattleGrid : MonoBehaviour
         return new Vector2(x, y);
     }
 
-    public void AlignObjects()
+    private void AlignObjects()
     {
-        foreach (var item in PCharacter)
+        foreach (var item in Players)
         {
             Vector2 arrarypos = GetCharactersClosestValidArrayPosition(item.transform.position);
             CustomGrid[(int)arrarypos.x, (int)arrarypos.y].Vacant = false;

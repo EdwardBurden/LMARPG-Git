@@ -14,10 +14,10 @@ public class RoamSetup : BaseSetup
     {
         Input.Init(this);
         Input.MoveCharcater += MoveCharacter;
-        Input.ChangeSelectCharacter(Manager.ActiveCharacter);
+        Input.ChangeSelectCharacter(GameManager.Instance.ActiveCharacter);
         UI = Instantiate(UIPrefab);
-        UI.Init(Manager.GetPartyCharacters(), this);
-        foreach (var item in Manager.Characters)
+        UI.Init(GameManager.Instance.GetPartyCharacters(), this);
+        foreach (var item in GameManager.Instance.Characters)
         {
             item.ChangeToRoam();
         }
@@ -35,14 +35,14 @@ public class RoamSetup : BaseSetup
 
     public void ChangeCharacter(PlayerCharcater pChar)
     {
-        Manager.ActiveCharacter = pChar;
-        Input.ChangeSelectCharacter(Manager.ActiveCharacter);
+        GameManager.Instance.ActiveCharacter = pChar;
+        Input.ChangeSelectCharacter(GameManager.Instance.ActiveCharacter);
     }
 
     public void MoveCharacter(PlayerCharcater playerCharcater, Vector3 point)
     {
         playerCharcater.MoveTo(point);
-        foreach (PlayerCharcater charcater in Manager.Characters)
+        foreach (PlayerCharcater charcater in GameManager.Instance.Characters)
         {
             if (charcater != playerCharcater)
             {

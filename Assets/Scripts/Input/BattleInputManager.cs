@@ -28,9 +28,22 @@ public class BattleInputManager : BaseInputManager
                 RaycastHit floorHit = CheckIfObjectIsInFocus("Floor");
                 if (floorHit.collider != null)
                 {
-                    Setup.MoveCharcaterToGridPosition(HoverPoint , SelectedPlayerCharacter);
+                    Setup.InputClick(HoverPoint, SelectedPlayerCharacter);
                 }
             }
+        }
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+        if (Input.GetKeyUp(KeyCode.S))
+        {
+            GameManager.Instance.SwitchToRoamSetup();
+        }
+        if (Input.GetKeyUp(KeyCode.E))
+        {
+            Setup.Combat_EndTurn();
         }
     }
 
@@ -41,8 +54,10 @@ public class BattleInputManager : BaseInputManager
         {
             HoverPoint = floorHit.point;
             Setup.UpdateGridHoverPosition(HoverPoint);
+            Cursor.SetCursor(SuccessTexture, Vector2.zero, CursorMode.Auto);
         }
-        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+        else
+            Cursor.SetCursor(FailureTexture, Vector2.zero, CursorMode.Auto);
     }
 
 }

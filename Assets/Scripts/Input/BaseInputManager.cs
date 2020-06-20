@@ -15,7 +15,7 @@ public abstract class BaseInputManager : MonoBehaviour
 
     protected abstract void HandleClick();
 
-    private void Update()
+    protected virtual void Update()
     {
         HandleHover();
         HandleClick();

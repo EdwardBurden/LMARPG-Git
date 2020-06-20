@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PartyController Party;
     public PlayerCharcater ActiveCharacter { get { return Party.ActivePlayerCharacter; } set { Party.ActivePlayerCharacter = value; } }
     public List<PlayerCharcater> Characters { get { return Party.PlayerCharacters; } set { Party.PlayerCharacters = value; } }
+    public Camera GameCamera;
 
     private void Awake()
     {
@@ -21,7 +22,6 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
-        ActiveSetup.Init(this);
         ActiveSetup.Activate();
     }
 
@@ -30,17 +30,7 @@ public class GameManager : MonoBehaviour
         ActiveSetup.Deactivate();
         Destroy(ActiveSetup.gameObject);
         ActiveSetup = GameObject.Instantiate(BattleSetup, triggertransform.position, triggertransform.rotation, null);
-        ActiveSetup.Init(this);
         ActiveSetup.Activate();
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyUp(KeyCode.S))
-        {
-            SwitchToRoamSetup();
-
-        }
     }
 
     public void SwitchToRoamSetup()
@@ -48,7 +38,6 @@ public class GameManager : MonoBehaviour
         ActiveSetup.Deactivate();
         Destroy(ActiveSetup.gameObject);
         ActiveSetup = Instantiate(RoamSetup);
-        ActiveSetup.Init(this);
         ActiveSetup.Activate();
     }
 

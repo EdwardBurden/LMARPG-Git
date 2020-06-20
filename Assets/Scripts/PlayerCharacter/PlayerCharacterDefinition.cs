@@ -9,4 +9,6 @@ public class PlayerCharacterDefinition : ScriptableObject
     public Sprite Icon;
     public Material TestMaterial;
     public int MovementRange;
+    [Range(0, 10)]
+    public int initiative;
 }
