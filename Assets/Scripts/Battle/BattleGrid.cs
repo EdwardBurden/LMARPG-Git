@@ -102,7 +102,7 @@ public class BattleGrid : MonoBehaviour
             {
                 int x = (int)node.x + i;
                 int z = (int)node.y + j;
-                if ((x > 0 && x < Width) && (z > 0 && z < Depth))
+                if ((x >= 0 && x < Width) && (z >= 0 && z < Depth))
                 {
                     float d = Vector3.Distance(playerCharcater.Character.transform.position, CustomGrid[x, z].CentrePosition);
                     if (CustomGrid[x, z].Walkable && CustomGrid[x, z].Vacant && d < maxRange)
@@ -123,7 +123,7 @@ public class BattleGrid : MonoBehaviour
 
     public void MoveCharacterOnGrid(PlayerCharcater character, Vector3 target)
     {
-        Vector2 arrraypos = GetArraryPositionAtWorldPosition(character.transform.position);
+        Vector2 arrraypos = GetArraryPositionAtWorldPosition(character.GetPosition());
         CustomGrid[(int)arrraypos.x, (int)arrraypos.y].Vacant = true;
 
         arrraypos = GetArraryPositionAtWorldPosition(target);

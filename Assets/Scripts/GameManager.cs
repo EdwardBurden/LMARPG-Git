@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        GeneralNoticeBoard.AwaitMessageGamobject(GeneralNoticeBoard.BattleTriggerKey, SwitchToBattleSetup);
     }
 
     public void Start()
@@ -25,11 +26,11 @@ public class GameManager : MonoBehaviour
         ActiveSetup.Activate();
     }
 
-    public void SwitchToBattleSetup(Transform triggertransform)
+    public void SwitchToBattleSetup(GameObject triggerObject)
     {
         ActiveSetup.Deactivate();
         Destroy(ActiveSetup.gameObject);
-        ActiveSetup = GameObject.Instantiate(BattleSetup, triggertransform.position, triggertransform.rotation, null);
+        ActiveSetup = GameObject.Instantiate(BattleSetup, triggerObject.transform.position, triggerObject.transform.rotation, null);
         ActiveSetup.Activate();
     }
 

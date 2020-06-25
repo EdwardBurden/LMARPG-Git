@@ -9,6 +9,7 @@ public class PlayerCharcater : MonoBehaviour
     public NavMeshAgent NavMesh;
     public PlayerCharacterDefinition Definition;
     private BasePlayerCharacterState State;
+    private Vector3 NodePosition;
 
     private void Start()
     {
@@ -35,6 +36,12 @@ public class PlayerCharcater : MonoBehaviour
     public void MoveTo(Vector3 pos)
     {
         State.Move(pos);
+        NodePosition = pos;
+    }
+
+    public Vector3 GetPosition()
+    {
+        return NodePosition;
     }
 
     public void Follow(GameObject leader)

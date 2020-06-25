@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BattlePlayerCharacterState : BasePlayerCharacterState
 {
-
     public BattlePlayerCharacterState(PlayerCharcater p)
     {
         Player = p;
