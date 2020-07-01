@@ -28,7 +28,7 @@ public class BattleGrid : MonoBehaviour
     public float GridSize = 1;
 
     public float MaxAlignmentDistance = 100;
-    private float RaycastHeight = 10;
+    private float RaycastHeight = 50;
 
     private List<PlayerCharcater> Players;
     private BattleNode HoveredGrid;
@@ -50,10 +50,10 @@ public class BattleGrid : MonoBehaviour
             for (int j = 0; j < Depth; j++)
             {
                 Vector2 flatPosition = new Vector2(offset.x + (i * GridSize), offset.y + (j * GridSize));
-                Vector3 rayCastOrigin = new Vector3(flatPosition.x, RaycastHeight, flatPosition.y);
+                Vector3 rayCastOrigin = new Vector3(flatPosition.x, this.transform.position.y + RaycastHeight, flatPosition.y);
                 RaycastHit floorHit;
                 bool hit = Physics.Raycast(rayCastOrigin, Vector3.down, out floorHit, 100, FloorOnlyLayerMask);
-                bool walkable = hit && floorHit.collider.gameObject.tag == "Floor" && !Physics.CheckSphere(floorHit.point, GridSize, StaticObstaclesLayerMask);
+                bool walkable = hit && floorHit.collider.gameObject.tag == "Floor" && !Physics.CheckSphere(floorHit.point + new Vector3(0, GridSize, 0), GridSize, StaticObstaclesLayerMask);
                 Vector3 heightPos;
                 if (walkable)
                 {

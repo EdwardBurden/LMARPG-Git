@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: OceanMat
+  m_Shader: {fileID: -6465566751694194690, guid: 2f7fb2b33e8d843a98eaf3c4d2865009,
+    type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 2
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2D_203EE4D8:
+        m_Texture: {fileID: 2800000, guid: 4353923934ed64e38ad1e3a9b3ebac98, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Vector1_1B7F540C: 0
+    - Vector1_2B1DD708: 7
+    - Vector1_3E1E2623: 0.3
+    - Vector1_4515101: 1
+    - Vector1_5E194B5B: 0.8
+    - Vector1_764C15AC: 0.1
+    - Vector1_7727A537: 7
+    - Vector1_9323FD19: 2
+    - Vector1_A1E81E76: 20
+    - Vector1_C2303B5E: 0.5
+    - Vector1_C51CA86A: 1
+    - Vector1_C56DEFA1: 1
+    m_Colors:
+    - Color_89AC029B: {r: 0.3973834, g: 0.6459114, b: 0.8867924, a: 1}
+    - Color_9496F507: {r: 0, g: 0.13934422, b: 1, a: 1}
+    - Vector2_A23D3543: {r: 0.001, g: 0.02, b: 0, a: 0}
