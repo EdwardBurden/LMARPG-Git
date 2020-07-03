@@ -16,7 +16,7 @@ public class RoamSetup : BaseSetup
         Input.MoveCharcater += MoveCharacter;
         Input.ChangeSelectCharacter(GameManager.Instance.ActivePlayer);
         UI = Instantiate(UIPrefab);
-        UI.Init(GameManager.Instance.GetPartyCharacters(), this);
+        UI.Init(GameManager.Instance.Players, this);
         ChangeCharacter(GameManager.Instance.ActivePlayer);
     }
 
@@ -43,7 +43,7 @@ public class RoamSetup : BaseSetup
         }
     }
 
-    public void MoveCharacter(PlayerCharcater playerCharcater, Vector3 point)
+    public void MoveCharacter(BaseCharacter playerCharcater, Vector3 point)
     {
         RoamCharacterHandler.MoveCharacterTo(playerCharcater, point);
     }

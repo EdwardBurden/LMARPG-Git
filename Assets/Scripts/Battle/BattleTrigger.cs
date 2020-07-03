@@ -22,5 +22,10 @@ public class BattleTrigger : MonoBehaviour
         {
             GeneralNoticeBoard.PostMessageGameobject(GeneralNoticeBoard.StartBattleKey, this.gameObject);
         }
+
+        if (other.gameObject.GetComponent<NPCCharacter>())
+        {
+            GeneralNoticeBoard.PostMessageGameobject(GeneralNoticeBoard.AddNPCToBattleKey, other.gameObject);
+        }
     }
 }

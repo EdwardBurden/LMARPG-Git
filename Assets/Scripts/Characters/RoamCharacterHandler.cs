@@ -8,6 +8,7 @@ public static class RoamCharacterHandler
     {
         baseCharacter.Follow = false;
         baseCharacter.FollowTarget = null;
+        baseCharacter.NavMesh.stoppingDistance = 0;
     }
 
     public static void SetFollow(BaseCharacter baseCharacter, GameObject gameObject)
@@ -15,6 +16,7 @@ public static class RoamCharacterHandler
         baseCharacter.Follow = true;
         baseCharacter.FollowTarget = gameObject;
         baseCharacter.StopAllCoroutines();
+        baseCharacter.NavMesh.stoppingDistance = 2;
     }
 
     public static void MoveCharacterTo(BaseCharacter baseCharacter, Vector3 pos)

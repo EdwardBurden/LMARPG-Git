@@ -5,8 +5,14 @@ using UnityEngine;
 
 public class SeekState : BaseNPCState
 {
-    public SeekState(NPCCharacter nPCCharacter) : base(nPCCharacter) {
+    public SeekState(NPCCharacter nPCCharacter) : base(nPCCharacter)
+    {
 
+    }
+
+    public override void AddedToBattle()
+    {
+        NextType = typeof(BattleState);
     }
 
     public override void BattleEnded()

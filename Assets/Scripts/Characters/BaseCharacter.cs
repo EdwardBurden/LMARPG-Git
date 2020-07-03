@@ -8,6 +8,7 @@ public abstract class BaseCharacter : MonoBehaviour
     public bool Follow = false;
     public GameObject FollowTarget = null;
 
+    public CharacterDefinition CharacterDefinition;
     public Vector2 GridArrayPosition;
 
     [SerializeField] private NavMeshAgent _NavMesh;

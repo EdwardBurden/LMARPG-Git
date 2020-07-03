@@ -12,7 +12,7 @@ public class RoamInputManager : BaseInputManager
     {
         Setup = setup;
     }
-    public Action<PlayerCharcater,Vector3> MoveCharcater;
+    public Action<BaseCharacter,Vector3> MoveCharcater;
 
     protected override void HandleClick()
     {
@@ -49,7 +49,7 @@ public class RoamInputManager : BaseInputManager
         }
     }
 
-    public override void ChangeSelectCharacter(PlayerCharcater character)
+    public override void ChangeSelectCharacter(BaseCharacter character)
     {
         SelectedPlayerCharacter = character;
     }

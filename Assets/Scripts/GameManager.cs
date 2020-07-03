@@ -23,8 +23,9 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        GeneralNoticeBoard.AwaitMessageGamobject(GeneralNoticeBoard.StartBattleKey, SwitchToBattleSetup);
-        GeneralNoticeBoard.AwaitMessageGamobject(GeneralNoticeBoard.EndBattleKey, SwitchToRoamSetup);
+        GeneralNoticeBoard.AwaitMessageGamobject(GeneralNoticeBoard.StartBattleKey, SwitchToBattleSetup , this);
+        GeneralNoticeBoard.AwaitMessageGamobject(GeneralNoticeBoard.EndBattleKey, SwitchToRoamSetup, this);
+
     }
 
     public void Start()
@@ -34,12 +35,15 @@ public class GameManager : MonoBehaviour
 
     private void SwitchToBattleSetup(GameObject triggerObject)
     {
-        ActiveSetup.Deactivate();
-        Destroy(ActiveSetup.gameObject);
-        BattleSetup BSetup =  GameObject.Instantiate(BattleSetup, triggerObject.transform.position, triggerObject.transform.rotation, null);
-        BSetup.SetBattleTriggerSetting(triggerObject.GetComponent<BattleTrigger>());
-        BSetup.Activate();
-        ActiveSetup = BSetup;
+        if (ActiveSetup.GetType() != typeof(BattleSetup))
+        {
+            ActiveSetup.Deactivate();
+            Destroy(ActiveSetup.gameObject);
+            BattleSetup BSetup = GameObject.Instantiate(BattleSetup, triggerObject.transform.position, triggerObject.transform.rotation, null);
+            BSetup.SetBattleTriggerSetting(triggerObject.GetComponent<BattleTrigger>());
+            BSetup.Activate();
+            ActiveSetup = BSetup;
+        }
     }
 
     private void SwitchToRoamSetup(GameObject trigger)
@@ -50,8 +54,4 @@ public class GameManager : MonoBehaviour
         ActiveSetup.Activate();
     }
 
-    public List<PlayerCharcater> GetPartyCharacters()
-    {
-        return Party.PlayerCharacters;
-    }
 }

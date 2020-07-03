@@ -7,15 +7,13 @@ using Random = UnityEngine.Random;
 
 public struct BattleOrder
 {
-    public PlayerCharcater Character;
+    public BaseCharacter Character;
     public int Iniative;
-    public int Stamina;
 
-    public BattleOrder(PlayerCharcater character, int iniative)
+    public BattleOrder(BaseCharacter character, int iniative)
     {
         Character = character;
         Iniative = iniative;
-        Stamina = 3;
     }
 }
 
@@ -29,25 +27,54 @@ public class BattleSetup : BaseSetup
     [SerializeField] TurnOrderUI UIPrefab;
 
     //battle manager
-    public List<BattleOrder> PartyOrder = new List<BattleOrder>();
-    private int PlayerTurn;
+    public List<BattleOrder> TurnOrders = new List<BattleOrder>();
+    private int OrderTurn;
+    public BattleOrder CurrentTurnOrder { get { return TurnOrders[OrderTurn]; } }
 
     public void UpdateGridHoverPosition(Vector3 vector)
     {
         Grid.UpdateHoverGridPosition(vector);
     }
 
+    public void Awake()
+    {
+        GeneralNoticeBoard.AwaitMessageGamobject(GeneralNoticeBoard.AddNPCToBattleKey, AddCharacterToBattle, this);
+    }
+
+    private void AddCharacterToBattle(GameObject npc)
+    {
+        NPCCharacter npcCharacter = npc.GetComponent<NPCCharacter>();
+        if (!TurnOrders.Exists(x => x.Character == npcCharacter))
+        {
+            int rollIt = Random.Range(0, 20) + npcCharacter.CharacterDefinition.initiative;
+            int newindex = TurnOrders.Count - 1;
+            for (int i = TurnOrders.Count - 1; i >= 0; i--)
+            {
+                if (rollIt > TurnOrders[i].Iniative)
+                {
+                    newindex = i;
+                }
+
+            }
+            if (newindex == OrderTurn)
+            {
+                OrderTurn++;
+            }
+            TurnOrders.Insert(newindex, new BattleOrder(npcCharacter, rollIt));
+
+            Grid.AlignCharacter(npcCharacter);
+            UI.Init(TurnOrders, this);
+            UI.HighlightCurrentPlayer(OrderTurn);
+        }
+    }
+
     public override void Activate()
     {
+        Combat_Begin();
         Input.Init(this);
         UI = Instantiate(UIPrefab);
-
-        Grid.Activate(GameManager.Instance.GetPartyCharacters() , Trigger.BattleRadius);
-
-        Combat_Begin();
-        UI.Init(PartyOrder, this);
-
-
+        UI.Init(TurnOrders, this);
+        Grid.Activate(this, Trigger.BattleRadius);
 
         Combat_BeginTurn();
     }
@@ -55,6 +82,7 @@ public class BattleSetup : BaseSetup
     public override void Deactivate()
     {
         Destroy(UI.gameObject);
+        GeneralNoticeBoard.RemoveAwaitGameobject(GeneralNoticeBoard.AddNPCToBattleKey, this);
     }
 
     public override BaseInputManager GetActiveInput()
@@ -62,7 +90,7 @@ public class BattleSetup : BaseSetup
         return Input;
     }
 
-    public void InputClick(Vector3 hoverPoint, PlayerCharcater character)
+    public void InputClick(Vector3 hoverPoint, BaseCharacter character)
     {
         if (Grid.CanMoveCharcaterOnGrid(character, hoverPoint))
         {
@@ -79,31 +107,35 @@ public class BattleSetup : BaseSetup
 
     public void Combat_BeginTurn()
     {
-        if (PlayerTurn >= PartyOrder.Count)
-            PlayerTurn = 0;
+        if (OrderTurn >= TurnOrders.Count)
+            OrderTurn = 0;
         //move camera
-        Grid.GetAvailableMovementNodes(PartyOrder[PlayerTurn]);
-        UI.HighlightCurrentPlayer(PlayerTurn);
-        PlayerCharcater PC = PartyOrder[PlayerTurn].Character;
-        Input.ChangeSelectCharacter(PC);
+        Grid.GetAvailableMovementNodes(TurnOrders[OrderTurn]);
+        UI.HighlightCurrentPlayer(OrderTurn);
+
+        Input.ChangeSelectCharacter(TurnOrders[OrderTurn].Character);
     }
 
 
     public void Combat_EndTurn()
     {
-        PlayerTurn++;
+        OrderTurn++;
         Combat_BeginTurn();
     }
 
     public void Combat_Begin()
     {
-        PlayerTurn = 0;
-        foreach (var player in GameManager.Instance.Players)
+        OrderTurn = 0;
+        List<BaseCharacter> Characters = new List<BaseCharacter>();
+        Characters.AddRange(GameManager.Instance.Players);
+        Characters.AddRange(Trigger.InludedCharacters);
+
+        foreach (var player in Characters)
         {
-            int rollIt = Random.Range(0, 20) + player.Definition.initiative;
-            PartyOrder.Add(new BattleOrder(player, rollIt));
+            int rollIt = Random.Range(0, 20) + player.CharacterDefinition.initiative;
+            TurnOrders.Add(new BattleOrder(player, rollIt));
         }
-        PartyOrder = PartyOrder.OrderBy(x => x.Iniative).ToList();
+        TurnOrders = TurnOrders.OrderBy(x => x.Iniative).ToList();
 
     }
 

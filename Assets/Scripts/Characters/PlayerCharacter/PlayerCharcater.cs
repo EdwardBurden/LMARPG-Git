@@ -6,11 +6,10 @@ using System;
 
 public class PlayerCharcater : BaseCharacter
 {
-    public PlayerCharacterDefinition Definition;
     private void Start()
     {
-        this.GetComponent<MeshRenderer>().material = Definition.TestMaterial;
-        this.name = Definition.Name;
+        this.GetComponent<MeshRenderer>().material = CharacterDefinition.TestMaterial;
+        this.name = CharacterDefinition.Name;
     }
 
 

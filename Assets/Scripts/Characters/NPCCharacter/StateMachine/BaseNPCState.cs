@@ -16,4 +16,6 @@ public abstract class BaseNPCState
 
     public virtual void BattleStarted() { }
     public virtual void BattleEnded() { }
+
+    public virtual void AddedToBattle() { }
 }

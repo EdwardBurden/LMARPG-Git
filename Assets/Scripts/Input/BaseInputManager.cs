@@ -7,9 +7,9 @@ public abstract class BaseInputManager : MonoBehaviour
 
     [SerializeField] protected Texture2D SuccessTexture;
     [SerializeField] protected Texture2D FailureTexture;
-    protected PlayerCharcater SelectedPlayerCharacter;
+    protected BaseCharacter SelectedPlayerCharacter;
 
-    public abstract void ChangeSelectCharacter(PlayerCharcater newCharacter);
+    public abstract void ChangeSelectCharacter(BaseCharacter newCharacter);
 
     protected abstract void HandleHover();
 

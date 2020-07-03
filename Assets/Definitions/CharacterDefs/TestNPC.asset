@@ -16,5 +16,5 @@ MonoBehaviour:
   Icon: {fileID: 0}
   TestMaterial: {fileID: 0}
   MovementRange: 4
-  initiative: 4
-  Aggressiveness: 10
+  initiative: 1
+  Aggressiveness: 20

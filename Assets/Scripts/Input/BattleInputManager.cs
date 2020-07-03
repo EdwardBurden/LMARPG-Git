@@ -14,7 +14,7 @@ public class BattleInputManager : BaseInputManager
 
     private Vector3 HoverPoint;
 
-    public override void ChangeSelectCharacter(PlayerCharcater newCharacter)
+    public override void ChangeSelectCharacter(BaseCharacter newCharacter)
     {
         SelectedPlayerCharacter = newCharacter;
     }
