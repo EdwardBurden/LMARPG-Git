@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TestPlayer
   m_EditorClassIdentifier: 
   Name: 
-  Icon: {fileID: 0}
-  TestMaterial: {fileID: 0}
-  MovementRange: 0
-  initiative: 0
+  Icon: {fileID: 21300000, guid: 95aef9eaa89cf4876ac563c8243b1f03, type: 3}
+  TestMaterial: {fileID: 2100000, guid: cb063e3d6ed894e8d87e58eee088d16d, type: 2}
+  MovementRange: 5
+  initiative: 3

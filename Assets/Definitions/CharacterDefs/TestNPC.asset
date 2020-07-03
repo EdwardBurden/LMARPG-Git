@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f3a80ecb090294b66bb89d2a1d6316af, type: 3}
-  m_Name: New NPC Character Definition
+  m_Name: TestNPC
   m_EditorClassIdentifier: 
   Name: 
   Icon: {fileID: 0}
   TestMaterial: {fileID: 0}
-  MovementRange: 0
-  initiative: 0
-  Aggressiveness: 0
+  MovementRange: 4
+  initiative: 4
+  Aggressiveness: 10

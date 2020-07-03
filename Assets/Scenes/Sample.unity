@@ -1377,11 +1377,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f761fa6d82ef8844e9f48cd1ec7f1266, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Definition: {fileID: 11400000, guid: b418820ed18f64b61a55fde532499d17, type: 2}
   Follow: 0
   FollowTarget: {fileID: 0}
   GridArrayPosition: {x: 0, y: 0}
   _NavMesh: {fileID: 0}
+  Definition: {fileID: 11400000, guid: 68828ab06b7ef4f4e994e30634bb7995, type: 2}
 --- !u!195 &300305053
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1912,6 +1912,36 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 404389908}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &415310777
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 415310778}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &415310778
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 415310777}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 16.5, y: 2.25, z: 11.75}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &430041559
 GameObject:
   m_ObjectHideFlags: 0
@@ -10095,12 +10125,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 821ce2aedf1534c9daa43c1dd8a0b321, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Definition: {fileID: 11400000, guid: 62571e563584f4831a545fade7bc82d3, type: 2}
   Follow: 0
   FollowTarget: {fileID: 0}
   GridArrayPosition: {x: 0, y: 0}
   _NavMesh: {fileID: 0}
-  HomePoint: {fileID: 0}
+  Definition: {fileID: 11400000, guid: 2a4f6bdd7468448c9bba2cb95c84d20f, type: 2}
+  HomePoint: {fileID: 415310778}
   Statemachine: {fileID: 1662430599}
 --- !u!195 &1662430594
 NavMeshAgent:
@@ -10634,6 +10664,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf7def88cbe51f4ebff1b8698ae1cc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EffectRadius: 30
+  BattleRadius: 0
+  AggressionLevel: 1
+  InludedCharacters: []
 --- !u!135 &1762228032
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -10645,7 +10679,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 3
+  m_Radius: 5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &1762228033
 Transform:
@@ -10655,7 +10689,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1762228029}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4, y: 5, z: -5}
+  m_LocalPosition: {x: -2.25, y: 5, z: -9.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -12285,11 +12319,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f761fa6d82ef8844e9f48cd1ec7f1266, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Definition: {fileID: 11400000, guid: b418820ed18f64b61a55fde532499d17, type: 2}
   Follow: 0
   FollowTarget: {fileID: 0}
   GridArrayPosition: {x: 0, y: 0}
   _NavMesh: {fileID: 0}
+  Definition: {fileID: 11400000, guid: 68828ab06b7ef4f4e994e30634bb7995, type: 2}
 --- !u!195 &2137940733
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -12345,11 +12379,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f761fa6d82ef8844e9f48cd1ec7f1266, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Definition: {fileID: 11400000, guid: b418820ed18f64b61a55fde532499d17, type: 2}
   Follow: 0
   FollowTarget: {fileID: 0}
   GridArrayPosition: {x: 0, y: 0}
   _NavMesh: {fileID: 0}
+  Definition: {fileID: 11400000, guid: 68828ab06b7ef4f4e994e30634bb7995, type: 2}
 --- !u!195 &2146237228
 NavMeshAgent:
   m_ObjectHideFlags: 0
