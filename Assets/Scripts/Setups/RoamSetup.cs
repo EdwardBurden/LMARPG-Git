@@ -14,13 +14,10 @@ public class RoamSetup : BaseSetup
     {
         Input.Init(this);
         Input.MoveCharcater += MoveCharacter;
-        Input.ChangeSelectCharacter(GameManager.Instance.ActiveCharacter);
+        Input.ChangeSelectCharacter(GameManager.Instance.ActivePlayer);
         UI = Instantiate(UIPrefab);
         UI.Init(GameManager.Instance.GetPartyCharacters(), this);
-        foreach (var item in GameManager.Instance.Characters)
-        {
-            item.ChangeToRoam();
-        }
+        ChangeCharacter(GameManager.Instance.ActivePlayer);
     }
 
     public override void Deactivate()
@@ -35,21 +32,28 @@ public class RoamSetup : BaseSetup
 
     public void ChangeCharacter(PlayerCharcater pChar)
     {
-        GameManager.Instance.ActiveCharacter = pChar;
-        Input.ChangeSelectCharacter(GameManager.Instance.ActiveCharacter);
+        GameManager.Instance.ActivePlayer = pChar;
+        Input.ChangeSelectCharacter(GameManager.Instance.ActivePlayer);
+        foreach (PlayerCharcater charcater in GameManager.Instance.Players)
+        {
+            if (charcater != pChar)
+            {
+                RoamCharacterHandler.SetFollow(charcater, pChar.gameObject);
+            }
+        }
     }
 
     public void MoveCharacter(PlayerCharcater playerCharcater, Vector3 point)
     {
-        playerCharcater.MoveTo(point);
-        foreach (PlayerCharcater charcater in GameManager.Instance.Characters)
-        {
-            if (charcater != playerCharcater)
-            {
-                charcater.Follow(playerCharcater.gameObject);
-            }
-        }
+        RoamCharacterHandler.MoveCharacterTo(playerCharcater, point);
+    }
 
+    private void Update()
+    {
+        foreach (var character in GameManager.Instance.Players)
+        {
+            RoamCharacterHandler.HandleUpdate_Follow(character);
+        }
     }
 
 }

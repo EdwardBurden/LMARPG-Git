@@ -39,7 +39,7 @@ public class BattleInputManager : BaseInputManager
         base.Update();
         if (Input.GetKeyUp(KeyCode.S))
         {
-            GameManager.Instance.SwitchToRoamSetup();
+            GeneralNoticeBoard.PostMessageGameobject(GeneralNoticeBoard.EndBattleKey, null);
         }
         if (Input.GetKeyUp(KeyCode.E))
         {

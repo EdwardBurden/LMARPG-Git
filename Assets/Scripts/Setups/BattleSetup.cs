@@ -7,7 +7,6 @@ using Random = UnityEngine.Random;
 
 public struct BattleOrder
 {
-
     public PlayerCharcater Character;
     public int Iniative;
     public int Stamina;
@@ -23,6 +22,7 @@ public struct BattleOrder
 
 public class BattleSetup : BaseSetup
 {
+    private BattleTrigger Trigger;
     [SerializeField] BattleInputManager Input;
     [SerializeField] BattleGrid Grid;
     private TurnOrderUI UI;
@@ -42,7 +42,7 @@ public class BattleSetup : BaseSetup
         Input.Init(this);
         UI = Instantiate(UIPrefab);
 
-        Grid.Activate(GameManager.Instance.GetPartyCharacters());
+        Grid.Activate(GameManager.Instance.GetPartyCharacters() , Trigger.BattleRadius);
 
         Combat_Begin();
         UI.Init(PartyOrder, this);
@@ -72,6 +72,11 @@ public class BattleSetup : BaseSetup
         }
     }
 
+    public void SetBattleTriggerSetting(BattleTrigger battleTrigger)
+    {
+        Trigger = battleTrigger;
+    }
+
     public void Combat_BeginTurn()
     {
         if (PlayerTurn >= PartyOrder.Count)
@@ -79,7 +84,8 @@ public class BattleSetup : BaseSetup
         //move camera
         Grid.GetAvailableMovementNodes(PartyOrder[PlayerTurn]);
         UI.HighlightCurrentPlayer(PlayerTurn);
-        Input.ChangeSelectCharacter(PartyOrder[PlayerTurn].Character);
+        PlayerCharcater PC = PartyOrder[PlayerTurn].Character;
+        Input.ChangeSelectCharacter(PC);
     }
 
 
@@ -92,9 +98,8 @@ public class BattleSetup : BaseSetup
     public void Combat_Begin()
     {
         PlayerTurn = 0;
-        foreach (var player in GameManager.Instance.Characters)
+        foreach (var player in GameManager.Instance.Players)
         {
-            player.ChangeToBattle();
             int rollIt = Random.Range(0, 20) + player.Definition.initiative;
             PartyOrder.Add(new BattleOrder(player, rollIt));
         }
@@ -104,6 +109,6 @@ public class BattleSetup : BaseSetup
 
     public void Comabt_End()
     {
-        GameManager.Instance.SwitchToRoamSetup();
+        GeneralNoticeBoard.PostMessageGameobject(GeneralNoticeBoard.EndBattleKey, Trigger.gameObject);
     }
 }

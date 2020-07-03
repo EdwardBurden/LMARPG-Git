@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,14 +12,19 @@ public class GameManager : MonoBehaviour
     [SerializeField] private RoamSetup RoamSetup;
     [SerializeField] private BattleSetup BattleSetup;
     [SerializeField] private PartyController Party;
-    public PlayerCharcater ActiveCharacter { get { return Party.ActivePlayerCharacter; } set { Party.ActivePlayerCharacter = value; } }
-    public List<PlayerCharcater> Characters { get { return Party.PlayerCharacters; } set { Party.PlayerCharacters = value; } }
+    [SerializeField] private NPCController NPController;
+
+    public PlayerCharcater ActivePlayer { get { return Party.ActivePlayerCharacter; } set { Party.ActivePlayerCharacter = value; } }
+    public List<PlayerCharcater> Players { get { return Party.PlayerCharacters; } }
+    public List<NPCCharacter> NPCs { get { return NPController.NPCCharacters; } }
+
     public Camera GameCamera;
 
     private void Awake()
     {
         Instance = this;
-        GeneralNoticeBoard.AwaitMessageGamobject(GeneralNoticeBoard.BattleTriggerKey, SwitchToBattleSetup);
+        GeneralNoticeBoard.AwaitMessageGamobject(GeneralNoticeBoard.StartBattleKey, SwitchToBattleSetup);
+        GeneralNoticeBoard.AwaitMessageGamobject(GeneralNoticeBoard.EndBattleKey, SwitchToRoamSetup);
     }
 
     public void Start()
@@ -26,15 +32,17 @@ public class GameManager : MonoBehaviour
         ActiveSetup.Activate();
     }
 
-    public void SwitchToBattleSetup(GameObject triggerObject)
+    private void SwitchToBattleSetup(GameObject triggerObject)
     {
         ActiveSetup.Deactivate();
         Destroy(ActiveSetup.gameObject);
-        ActiveSetup = GameObject.Instantiate(BattleSetup, triggerObject.transform.position, triggerObject.transform.rotation, null);
-        ActiveSetup.Activate();
+        BattleSetup BSetup =  GameObject.Instantiate(BattleSetup, triggerObject.transform.position, triggerObject.transform.rotation, null);
+        BSetup.SetBattleTriggerSetting(triggerObject.GetComponent<BattleTrigger>());
+        BSetup.Activate();
+        ActiveSetup = BSetup;
     }
 
-    public void SwitchToRoamSetup()
+    private void SwitchToRoamSetup(GameObject trigger)
     {
         ActiveSetup.Deactivate();
         Destroy(ActiveSetup.gameObject);

@@ -1,0 +1,31 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SeekState : BaseNPCState
+{
+    public SeekState(NPCCharacter nPCCharacter) : base(nPCCharacter) {
+
+    }
+
+    public override void BattleEnded()
+    {
+        NextType = typeof(WanderState);
+    }
+
+    public override void StartHandle()
+    {
+        NextType = null;
+        Character.NavMesh.SetDestination(Character.Battle.transform.position);
+    }
+
+    public override Type UpdateHandle()
+    {
+        if (NextType != null)
+        {
+            return NextType;
+        }
+        return null;
+    }
+}

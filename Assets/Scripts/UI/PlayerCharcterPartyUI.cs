@@ -12,7 +12,7 @@ public class PlayerCharcterPartyUI : MonoBehaviour
     public Color HighlightColour;
     public Color DefaultColour;
 
-    public void Init(PlayerCharacterDefinition playerCharacterDefinition)
+    public void Init(CharacterDefinition playerCharacterDefinition)
     {
         IconImage.sprite = playerCharacterDefinition.Icon;
         NameText.text = playerCharacterDefinition.Name;

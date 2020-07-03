@@ -5,7 +5,8 @@ using UnityEngine;
 
 public static class GeneralNoticeBoard
 {
-    public  const string BattleTriggerKey = "Triggerbattle";
+    public  const string StartBattleKey = "StartBattle";
+    public const string EndBattleKey = "EndBattle";
     private static Dictionary<string, ReadingList<GameObject>> GameObjectDictionary = new Dictionary<string, ReadingList<GameObject>>();
 
 

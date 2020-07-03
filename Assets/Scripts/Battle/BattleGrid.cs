@@ -27,15 +27,16 @@ public class BattleGrid : MonoBehaviour
     public BattleNode[,] CustomGrid = new BattleNode[100, 100];
     public float GridSize = 1;
 
-    public float MaxAlignmentDistance = 100;
+    private float MaxAlignmentDistance = Mathf.Infinity;
     private float RaycastHeight = 50;
 
     private List<PlayerCharcater> Players;
     private BattleNode HoveredGrid;
     public List<BattleNode> SelectedCharactersMoveableArea = new List<BattleNode>();
 
-    public void Activate(List<PlayerCharcater> players)
+    public void Activate(List<PlayerCharcater> players, float radius)
     {
+        Width = Depth = Mathf.FloorToInt(radius);
         Players = players;
         SetupGrid();
         AlignObjects();
@@ -123,11 +124,10 @@ public class BattleGrid : MonoBehaviour
 
     public void MoveCharacterOnGrid(PlayerCharcater character, Vector3 target)
     {
-        Vector2 arrraypos = GetArraryPositionAtWorldPosition(character.GetPosition());
-        CustomGrid[(int)arrraypos.x, (int)arrraypos.y].Vacant = true;
+        CustomGrid[(int)character.GridArrayPosition.x, (int)character.GridArrayPosition.y].Vacant = true;
 
-        arrraypos = GetArraryPositionAtWorldPosition(target);
-        character.MoveTo(CustomGrid[(int)arrraypos.x, (int)arrraypos.y].CentrePosition);
+        Vector2 arrraypos = GetArraryPositionAtWorldPosition(target);
+        BattleCharacterHandler.MoveCharacterTo(character, CustomGrid[(int)arrraypos.x, (int)arrraypos.y].CentrePosition, arrraypos);
         CustomGrid[(int)arrraypos.x, (int)arrraypos.y].Vacant = false;
     }
 
@@ -185,7 +185,7 @@ public class BattleGrid : MonoBehaviour
         {
             Vector2 arrarypos = GetCharactersClosestValidArrayPosition(item.transform.position);
             CustomGrid[(int)arrarypos.x, (int)arrarypos.y].Vacant = false;
-            item.MoveTo(CustomGrid[(int)arrarypos.x, (int)arrarypos.y].CentrePosition);
+            BattleCharacterHandler.MoveCharacterTo(item, CustomGrid[(int)arrarypos.x, (int)arrarypos.y].CentrePosition, arrarypos);
         }
     }
 }
