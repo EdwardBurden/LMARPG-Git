@@ -28,6 +28,7 @@ public class NPCCharacter : BaseCharacter
 
     private void BattleStarted(GameObject battletrigger)
     {
+ 
         Battle = battletrigger.GetComponent<BattleTrigger>();
         Statemachine.CurrentState.BattleStarted();
     }
