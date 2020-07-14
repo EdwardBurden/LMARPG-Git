@@ -6,8 +6,9 @@ using System;
 
 public class PlayerCharcater : BaseCharacter
 {
-    private void Start()
+    public override void Start()
     {
+        base.Start();
         this.GetComponent<MeshRenderer>().material = CharacterDefinition.TestMaterial;
         this.name = CharacterDefinition.Name;
     }
