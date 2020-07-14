@@ -12,25 +12,29 @@ public class NPCCharacter : BaseCharacter
 
     private void Awake()
     {
-        GeneralNoticeBoard.AwaitMessageGamobject(GeneralNoticeBoard.StartBattleKey, BattleStarted , this);
+        GeneralNoticeBoard.AwaitMessageGamobject(GeneralNoticeBoard.StartBattleKey, BattleStarted, this);
         GeneralNoticeBoard.AwaitMessageGamobject(GeneralNoticeBoard.EndBattleKey, BattleEnded, this);
-        GeneralNoticeBoard.AwaitMessageGamobject(GeneralNoticeBoard.AddNPCToBattleKey, AddedToBattle , this);
+        // GeneralNoticeBoard.AwaitMessageGamobject(GeneralNoticeBoard.AddNPCToBattleKey, AddedToBattle, this);
         InitStateMachine();
     }
 
-    private void AddedToBattle(GameObject npc)
+    public void AddedToBattle()
     {
-        if (npc.GetComponent<NPCCharacter>() && npc.GetComponent<NPCCharacter>() == this)
+        if (Battle != null)
         {
-            Statemachine.CurrentState.AddedToBattle();
+           // Statemachine.CurrentState.AddedToBattle();
+            Statemachine.SwitchState(typeof(BattleState));
         }
     }
 
     private void BattleStarted(GameObject battletrigger)
     {
- 
-        Battle = battletrigger.GetComponent<BattleTrigger>();
-        Statemachine.CurrentState.BattleStarted();
+        if (Battle == null)
+        {
+            Battle = battletrigger.GetComponent<BattleTrigger>();
+
+            Statemachine.CurrentState.BattleStarted();
+        }
     }
 
     private void BattleEnded(GameObject battletrigger)

@@ -46,6 +46,7 @@ public class BattleSetup : BaseSetup
         NPCCharacter npcCharacter = npc.GetComponent<NPCCharacter>();
         if (!TurnOrders.Exists(x => x.Character == npcCharacter))
         {
+            npcCharacter.AddedToBattle();
             int rollIt = Random.Range(0, 20) + npcCharacter.CharacterDefinition.initiative;
             int newindex = TurnOrders.Count - 1;
             for (int i = TurnOrders.Count - 1; i >= 0; i--)
@@ -70,9 +71,10 @@ public class BattleSetup : BaseSetup
 
     public override void Activate()
     {
+        UI = Instantiate(UIPrefab);
         Combat_Begin();
         Input.Init(this);
-        UI = Instantiate(UIPrefab);
+
         UI.Init(TurnOrders, this);
         Grid.Activate(this, Trigger.BattleRadius);
 
@@ -117,6 +119,11 @@ public class BattleSetup : BaseSetup
     }
 
 
+    private void Update()
+    {
+        Grid.GetAvailableMovementNodes(TurnOrders[OrderTurn]);
+    }
+
     public void Combat_EndTurn()
     {
         OrderTurn++;
@@ -128,15 +135,12 @@ public class BattleSetup : BaseSetup
         OrderTurn = 0;
         List<BaseCharacter> Characters = new List<BaseCharacter>();
         Characters.AddRange(GameManager.Instance.Players);
-        Characters.AddRange(Trigger.InludedCharacters);
-
         foreach (var player in Characters)
         {
             int rollIt = Random.Range(0, 20) + player.CharacterDefinition.initiative;
             TurnOrders.Add(new BattleOrder(player, rollIt));
         }
         TurnOrders = TurnOrders.OrderBy(x => x.Iniative).ToList();
-
     }
 
     public void Comabt_End()

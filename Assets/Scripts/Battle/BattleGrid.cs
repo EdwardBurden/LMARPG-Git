@@ -111,8 +111,8 @@ public class BattleGrid : MonoBehaviour
                 int z = (int)playerCharcater.Character.GridArrayPosition.y + j;
                 if ((x >= 0 && x < Width) && (z >= 0 && z < Depth))
                 {
-                    float d = Vector3.Distance(CustomGrid[(int)playerCharcater.Character.GridArrayPosition.x, (int)playerCharcater.Character.GridArrayPosition.y].CentrePosition, CustomGrid[x, z].CentrePosition);
-                    if (CustomGrid[x, z].Walkable && CustomGrid[x, z].Vacant && d < maxRange)
+                    //float d = Vector3.Distance(CustomGrid[(int)playerCharcater.Character.GridArrayPosition.x, (int)playerCharcater.Character.GridArrayPosition.y].CentrePosition, CustomGrid[x, z].CentrePosition);
+                    if (CustomGrid[x, z].Walkable && CustomGrid[x, z].Vacant)
                     {
                         SelectedCharactersMoveableArea.Add(CustomGrid[x, z]);
                     }

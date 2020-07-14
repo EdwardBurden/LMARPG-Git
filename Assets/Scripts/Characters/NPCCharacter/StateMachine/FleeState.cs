@@ -18,7 +18,7 @@ public class FleeState : BaseNPCState
     public override void StartHandle()
     {
         NextType = null;
-        Character.NavMesh.SetDestination(Character.HomePoint.position);
+        RoamCharacterHandler.MoveCharacterTo(Character, Character.HomePoint.position);
     }
 
     public override Type UpdateHandle()

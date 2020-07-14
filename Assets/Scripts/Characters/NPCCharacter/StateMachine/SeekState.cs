@@ -23,7 +23,7 @@ public class SeekState : BaseNPCState
     public override void StartHandle()
     {
         NextType = null;
-        Character.NavMesh.SetDestination(Character.Battle.transform.position);
+        RoamCharacterHandler.MoveCharacterTo(Character, Character.Battle.transform.position);
     }
 
     public override Type UpdateHandle()

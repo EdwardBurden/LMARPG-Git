@@ -16,6 +16,11 @@ public class WanderState : BaseNPCState
 
     }
 
+    public override void AddedToBattle()
+    {
+        NextType = typeof(BattleState);
+    }
+
     public override void BattleStarted()
     {
         CheckDistanceToBattle();
@@ -37,7 +42,7 @@ public class WanderState : BaseNPCState
                 y = 0,
                 z = Random.Range(-WanderRange, WanderRange)
             };
-            Character.NavMesh.SetDestination(Destination);
+            RoamCharacterHandler.MoveCharacterTo(Character, Destination);
             WaitTimer = 0;
         }
         CheckDistanceToBattle();

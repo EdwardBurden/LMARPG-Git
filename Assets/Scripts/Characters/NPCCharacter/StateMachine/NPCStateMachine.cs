@@ -25,7 +25,7 @@ public class NPCStateMachine : MonoBehaviour
         }
     }
 
-    private void SwitchState(Type type)
+    public void SwitchState(Type type)
     {
         CurrentState = AvailableStates[type];
         CurrentState.StartHandle();
