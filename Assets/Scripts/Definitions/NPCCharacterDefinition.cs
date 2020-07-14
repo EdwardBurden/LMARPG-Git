@@ -6,4 +6,5 @@ using UnityEngine;
 public class NPCCharacterDefinition : CharacterDefinition
 {
     public float Aggressiveness;
+    public NPCAllegiance Allegiance;
 }
