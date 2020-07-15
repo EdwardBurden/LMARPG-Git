@@ -8,13 +8,12 @@ public class NPCCharacter : BaseCharacter
     public Transform HomePoint;
     public BattleTrigger Battle { get; private set; }
 
-    public NPCStateMachine Statemachine;
+    [SerializeField] private NPCStateMachine Statemachine;
 
     private void Awake()
     {
         GeneralNoticeBoard.AwaitMessageGamobject(GeneralNoticeBoard.StartBattleKey, BattleStarted, this);
         GeneralNoticeBoard.AwaitMessageGamobject(GeneralNoticeBoard.EndBattleKey, BattleEnded, this);
-        // GeneralNoticeBoard.AwaitMessageGamobject(GeneralNoticeBoard.AddNPCToBattleKey, AddedToBattle, this);
         InitStateMachine();
     }
 
@@ -22,7 +21,6 @@ public class NPCCharacter : BaseCharacter
     {
         if (Battle != null)
         {
-           // Statemachine.CurrentState.AddedToBattle();
             Statemachine.SwitchState(typeof(BattleState));
         }
     }

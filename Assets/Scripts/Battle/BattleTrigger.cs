@@ -15,7 +15,14 @@ public class BattleTrigger : MonoBehaviour
 
     private void Awake()
     {
+        GeneralNoticeBoard.AwaitMessageGamobject(GeneralNoticeBoard.EndBattleKey, BattleEnded , this);
         BattleRadius = GetComponent<SphereCollider>().radius;
+        BattleStarted = false;
+    }
+
+    private void BattleEnded(GameObject gameObject)
+    {
+        //Destroy(this.gameObject);
         BattleStarted = false;
     }
 

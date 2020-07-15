@@ -48,6 +48,7 @@ MonoBehaviour:
   System: {fileID: 380927356}
   ParticleName: Walking
   DeleteOn1stLoop: 0
+  Active: 0
 --- !u!198 &380927356
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -64,7 +65,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -300,7 +301,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0.4
       minScalar: 1
       maxCurve:
         serializedVersion: 2

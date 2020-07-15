@@ -9,7 +9,6 @@ public class ParticleInstance : MonoBehaviour
     public float Length => System.main.duration;
     public bool DeleteOn1stLoop;
 
-
     public bool Active = false;
 
     public void Activate()
@@ -20,7 +19,6 @@ public class ParticleInstance : MonoBehaviour
             Active = true;
         }
     }
-
 
     public void Deactivate()
     {
@@ -33,12 +31,10 @@ public class ParticleInstance : MonoBehaviour
 
     private void Awake()
     {
-        System.Play();
+        this.gameObject.name = ParticleName;
         if (!System.main.loop || DeleteOn1stLoop)
         {
             Destroy(this.gameObject, Length);
         }
     }
-
-
 }
