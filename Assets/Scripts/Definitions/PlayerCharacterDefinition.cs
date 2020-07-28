@@ -5,5 +5,5 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Definition/Player")]
 public class PlayerCharacterDefinition : CharacterDefinition
 {
-
+    public string Greeting;
 }

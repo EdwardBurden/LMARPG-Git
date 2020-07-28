@@ -6,6 +6,10 @@ using System;
 
 public class PlayerCharcater : BaseCharacter
 {
+    private SD_PlayerCharacter HiddenData;
+
+    public override SD_Base BaseData { get => HiddenData; set => HiddenData = (SD_PlayerCharacter)value; }
+
     public override void Start()
     {
         base.Start();

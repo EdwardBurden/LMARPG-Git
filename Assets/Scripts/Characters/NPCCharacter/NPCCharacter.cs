@@ -8,6 +8,9 @@ public class NPCCharacter : BaseCharacter
     public Transform HomePoint;
     public BattleTrigger Battle { get; private set; }
 
+    private SD_NPCCharacter HiddenData;
+    public override SD_Base BaseData { get => HiddenData; set => HiddenData = (SD_NPCCharacter)value; }
+
     [SerializeField] private NPCStateMachine Statemachine;
 
     private void Awake()

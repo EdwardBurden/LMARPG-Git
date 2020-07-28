@@ -1,9 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public abstract class BaseCharacter : MonoBehaviour
+public abstract class BaseCharacter : SerialisedGameObject
 {
     [SerializeField] private ParticleInstance WalkingParticlePrefab = null; //could change in future for different terrain, might have to be list/restructured
     [SerializeField] private AudioInstance WalkingSoundPrefab = null; //could change in future for different terrain, might have to be list/restructured
