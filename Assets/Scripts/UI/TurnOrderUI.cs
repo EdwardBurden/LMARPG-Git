@@ -21,7 +21,7 @@ public class TurnOrderUI : MonoBehaviour
         foreach (var border in orders)
         {
             PlayerCharcterPartyUI b = Instantiate(CharcaterButtonPrefab, CharcaterContent);
-            b.Init(border.Character.CharacterDefinition);
+            b.Init(border.Character.GetCharacterData);
             b.SelectButton.interactable = false;
             CharactersUI.Add(b);
         }

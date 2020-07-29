@@ -5,4 +5,9 @@ using UnityEngine;
 public class SD_PlayerCharacter : SD_Character
 {
     public string Greeting;
+
+    public override void CreateData()
+    {
+        base.CreateData();
+    }
 }

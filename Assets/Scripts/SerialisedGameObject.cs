@@ -4,5 +4,12 @@ using UnityEngine;
 
 public abstract class SerialisedGameObject : MonoBehaviour
 {
-    public abstract SD_Base BaseData { get; set; }
+    [HideInInspector][SerializeField] public string DataReferanceID;
+
+    public abstract void InitData();
+
+    protected virtual void Awake()
+    {
+        InitData();
+    }
 }

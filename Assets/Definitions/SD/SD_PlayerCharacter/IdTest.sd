@@ -1,1 +1,1 @@
-{"Greeting":null,"Icon":null,"TestMaterial":null,"MovementRange":0,"Initiative":0,"ID":"IdTest","DisplayName":"Chris"}
+{"$type":"SD_PlayerCharacter, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","Greeting":null,"Icon":null,"TestMaterial":null,"MovementRange":0,"Initiative":0,"ID":"IdTest","DisplayName":"Test"}

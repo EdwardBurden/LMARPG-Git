@@ -18,7 +18,7 @@ public class PartyUI : MonoBehaviour
         foreach (var character in Characters)
         {
             PlayerCharcterPartyUI b = Instantiate(CharcaterButtonPrefab, CharcaterContent);
-            b.Init(character.CharacterDefinition);
+            b.Init(character.GetCharacterData);
             b.SelectButton.onClick.AddListener(() => OnCharcterButtonClick(character));
         }
     }

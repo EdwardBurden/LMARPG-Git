@@ -6,15 +6,20 @@ using System;
 
 public class PlayerCharcater : BaseCharacter
 {
-    private SD_PlayerCharacter HiddenData;
+    public SD_PlayerCharacter PlayerData;
 
-    public override SD_Base BaseData { get => HiddenData; set => HiddenData = (SD_PlayerCharacter)value; }
+    public override SD_Character GetCharacterData { get => PlayerData; set => PlayerData = (SD_PlayerCharacter)value; }
+
+    public override void InitData()
+    {
+        PlayerData = DataHandler.ImportByName<SD_PlayerCharacter>(DataReferanceID);
+    }
 
     public override void Start()
     {
         base.Start();
-        this.GetComponent<MeshRenderer>().material = CharacterDefinition.TestMaterial;
-        this.name = CharacterDefinition.Name;
+        this.GetComponent<MeshRenderer>().material = GetCharacterData.TestMaterial;
+        this.name = GetCharacterData.DisplayName;
     }
 
 

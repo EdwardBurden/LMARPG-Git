@@ -6,19 +6,21 @@ using UnityEngine.AI;
 
 public abstract class BaseCharacter : SerialisedGameObject
 {
+    //Saved Stuff
+    public float Health;
+
+    //Prefab Stuff
     [SerializeField] private ParticleInstance WalkingParticlePrefab = null; //could change in future for different terrain, might have to be list/restructured
     [SerializeField] private AudioInstance WalkingSoundPrefab = null; //could change in future for different terrain, might have to be list/restructured
-
     [SerializeField] private Transform ParticleSpawnPoint = null;
-    [SerializeField] private CharacterDefinition _CharacterDefinition;
 
+    //Movement stuff
     [HideInInspector] public bool Follow = false;
     [HideInInspector] public GameObject FollowTarget = null;
     [HideInInspector] public Vector2 GridArrayPosition;
 
-    public CharacterDefinition CharacterDefinition { get { return _CharacterDefinition; } }
+    public abstract SD_Character GetCharacterData { get; set; }
 
-    /*[SerializeField]*/
     private NavMeshAgent _NavMesh;
     public NavMeshAgent NavMesh
     {

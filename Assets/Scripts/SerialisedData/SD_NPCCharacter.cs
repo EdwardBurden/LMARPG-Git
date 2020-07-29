@@ -6,4 +6,9 @@ public class SD_NPCCharacter : SD_Character
 {
     public float Aggressiveness;
     public NPCAllegiance Allegiance;
+
+    public override void CreateData()
+    {
+        base.CreateData();
+    }
 }

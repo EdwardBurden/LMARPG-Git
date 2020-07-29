@@ -57,7 +57,7 @@ public class WanderState : BaseNPCState
     {
         if (Character.Battle && Character.Battle.EffectRadius > Vector3.Distance(Character.transform.position, Character.Battle.gameObject.transform.position))
         {
-            if (((NPCCharacterDefinition)Character.CharacterDefinition).Aggressiveness > Character.Battle.AggressionLevel)
+            if (Character.Data.Aggressiveness > Character.Battle.AggressionLevel)
                 NextType = typeof(SeekState);
             else
                 NextType = typeof(FleeState);

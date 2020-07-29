@@ -47,7 +47,7 @@ public class BattleSetup : BaseSetup
         if (!TurnOrders.Exists(x => x.Character == npcCharacter))
         {
             npcCharacter.AddedToBattle();
-            int rollIt = Random.Range(0, 20) + npcCharacter.CharacterDefinition.initiative;
+            int rollIt = Random.Range(0, 20) + npcCharacter.GetCharacterData.Initiative;
             int newindex = TurnOrders.Count - 1;
             for (int i = TurnOrders.Count - 1; i >= 0; i--)
             {
@@ -137,7 +137,7 @@ public class BattleSetup : BaseSetup
         Characters.AddRange(GameManager.Instance.Players);
         foreach (var player in Characters)
         {
-            int rollIt = Random.Range(0, 20) + player.CharacterDefinition.initiative;
+            int rollIt = Random.Range(0, 20) + player.GetCharacterData.Initiative;
             TurnOrders.Add(new BattleOrder(player, rollIt));
         }
         TurnOrders = TurnOrders.OrderBy(x => x.Iniative).ToList();
