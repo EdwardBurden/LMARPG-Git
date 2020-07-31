@@ -1377,7 +1377,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f761fa6d82ef8844e9f48cd1ec7f1266, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DataReferanceID: IdTest
+  DataReferanceID: 
+  Health: 0
   WalkingParticlePrefab: {fileID: 3793052160158829332, guid: f9ec26573d3cd46f98dbac634ac8572f,
     type: 3}
   WalkingSoundPrefab: {fileID: 9073498505380807075, guid: 38269ba9f95d44f369d5f622a2593004,
@@ -7829,6 +7830,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DataReferanceID: 
+  Health: 0
   WalkingParticlePrefab: {fileID: 3793052160158829332, guid: f9ec26573d3cd46f98dbac634ac8572f,
     type: 3}
   WalkingSoundPrefab: {fileID: 9073498505380807075, guid: 5337d30df822942b899f146d38528ffc,
@@ -10853,6 +10855,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DataReferanceID: 
+  Health: 0
   WalkingParticlePrefab: {fileID: 3793052160158829332, guid: f9ec26573d3cd46f98dbac634ac8572f,
     type: 3}
   WalkingSoundPrefab: {fileID: 9073498505380807075, guid: 5337d30df822942b899f146d38528ffc,
@@ -12522,6 +12525,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DataReferanceID: IdTest
+  Health: 0
   WalkingParticlePrefab: {fileID: 3793052160158829332, guid: f9ec26573d3cd46f98dbac634ac8572f,
     type: 3}
   WalkingSoundPrefab: {fileID: 9073498505380807075, guid: 38269ba9f95d44f369d5f622a2593004,
@@ -13182,6 +13186,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 657ed68fb451a4621aa4f9df72476e6f, type: 3}
+--- !u!1 &6419046870499101828 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6077720671743483447, guid: 657ed68fb451a4621aa4f9df72476e6f,
+    type: 3}
+  m_PrefabInstance: {fileID: 6419046870499101827}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6419046870499101829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6419046870499101828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61260bf30dae04f8cb91ab7445f75fa0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DataReferanceID: 
 --- !u!1001 &7152573450216685935
 PrefabInstance:
   m_ObjectHideFlags: 0

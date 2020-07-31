@@ -21,7 +21,18 @@ public class CreateNewDataWindow : EditorWindow
 
     private void OnGUI()
     {
-        DataModel.CreateData();
+        if (DataModel != null)
+            DataModel.CreateData();
+
+        if (GUILayout.Button("Add"))
+        {
+            bool isfilled = DataModel.ValidateModel();
+            if (isfilled)
+            {
+                DataHandler.Export(DataModel);
+
+            }
+        }
     }
 
 }

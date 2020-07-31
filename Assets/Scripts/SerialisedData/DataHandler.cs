@@ -58,7 +58,7 @@ public static class DataHandler
 
     public static void Export<T>(T exportData) where T : SD_Base //change to data base
     {
-        string path = Path.Combine(ProjectAssetRoute, typeof(T).ToString());
+        string path = Path.Combine(ProjectAssetRoute, exportData.GetType().ToString());
         Directory.CreateDirectory(path);
         string assetname = exportData.ID + Extension;
         path = Path.Combine(path, assetname);

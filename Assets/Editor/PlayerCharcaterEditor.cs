@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-
+[CanEditMultipleObjects]
 [CustomEditor(typeof(PlayerCharcater), true)]
 public class PlayerCharcaterEditor : SerialisedGameObjectEditor<SD_PlayerCharacter>
 {
