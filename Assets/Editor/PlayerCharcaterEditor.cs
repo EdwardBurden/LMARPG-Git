@@ -10,7 +10,12 @@ public class PlayerCharcaterEditor : SerialisedGameObjectEditor<SD_PlayerCharact
 {
     public override void OpenNew()
     {
-        CreateNewDataWindow.OpenWindow<SD_PlayerCharacter>();
+        CreateNewDataWindow.OpenNewWindow<SD_PlayerCharacter>((PlayerCharcater)target);
+    }
+
+    public override void OpenView(SD_PlayerCharacter data)
+    {
+        ViewDataWindow.OpenViewWindow<SD_PlayerCharacter>((PlayerCharcater)target, data);
     }
 }
 

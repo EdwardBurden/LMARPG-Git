@@ -130,7 +130,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f761fa6d82ef8844e9f48cd1ec7f1266, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DataReferanceID: 
+  DataReferanceID: ed
+  Health: 0
   WalkingParticlePrefab: {fileID: 3793052160158829332, guid: f9ec26573d3cd46f98dbac634ac8572f,
     type: 3}
   WalkingSoundPrefab: {fileID: 9073498505380807075, guid: 38269ba9f95d44f369d5f622a2593004,

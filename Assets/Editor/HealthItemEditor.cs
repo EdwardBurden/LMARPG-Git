@@ -1,18 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
-public class HealthItemEditor : MonoBehaviour
+[CustomEditor(typeof(InteractableObject), true)]
+public class HealthItemEditor : SerialisedGameObjectEditor<SD_HealthItem>
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void OpenNew()
     {
-        
+        CreateNewDataWindow.OpenNewWindow<SD_HealthItem>((InteractableObject)target);
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void OpenView(SD_HealthItem data)
     {
-        
+        ViewDataWindow.OpenViewWindow<SD_HealthItem>((InteractableObject)target, data);
     }
 }

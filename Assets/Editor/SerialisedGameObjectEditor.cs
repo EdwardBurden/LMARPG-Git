@@ -6,47 +6,79 @@ using UnityEngine;
 [CustomEditor(typeof(SerialisedGameObject))]
 public abstract class SerialisedGameObjectEditor<T> : Editor where T : SD_Base
 {
-    T MyT;
-    SerializedProperty Id;
+    bool showSelection = false;
+    T SelectedData;
+    SerializedProperty SelectedId;
 
     private void OnEnable()
     {
-        Id = serializedObject.FindProperty("DataReferanceID");
-        MyT = DataHandler.ImportByName<T>(Id.stringValue);
+        SelectedId = serializedObject.FindProperty("DataReferanceID");
+        SelectedData = DataHandler.ImportByName<T>(SelectedId.stringValue);
     }
 
     public abstract void OpenNew();
 
-    public virtual void SelectData()
+    public abstract void OpenView(T myT);
+
+    private void Select()
     {
-        if (MyT == null)
+        if (showSelection)
         {
-            EditorGUILayout.LabelField("Select Data");
+            EditorGUILayout.LabelField("Select Data", EditorStyles.largeLabel);
+
             List<T> datas = DataHandler.ImportAll<T>();
             EditorGUILayout.BeginVertical();
             foreach (var item in datas)
             {
                 if (GUILayout.Button(item.DisplayName))
                 {
-                    MyT = item;
-                    Id.stringValue = item.ID;
+                    SelectedData = item;
+                    SelectedId.stringValue = item.ID;
                 }
             }
             EditorGUILayout.EndVertical();
         }
-        else
+    }
+
+    private void Clear()
+    {
+        SelectedData = null;
+        SelectedId.stringValue = null;
+    }
+
+    public virtual void DisplayOptions()
+    {
+        EditorGUILayout.Space(20);
+        EditorGUILayout.LabelField("Data", EditorStyles.largeLabel);
+        EditorGUILayout.BeginVertical();
+
+
+        EditorGUILayout.BeginHorizontal();
+        if (GUILayout.Button("Show/Hide Selection"))
         {
-            EditorGUILayout.LabelField("Selected Data = " + MyT.DisplayName);
-            if (GUILayout.Button("Reset"))
-            {
-                MyT = null;
-                Id.stringValue = null;
-            }
+            showSelection = !showSelection;
         }
         if (GUILayout.Button("New"))
         {
             OpenNew();
         }
+        EditorGUILayout.EndHorizontal();
+
+
+        EditorGUILayout.BeginHorizontal();
+        if (GUILayout.Button("View"))
+        {
+            OpenView(SelectedData);
+        }
+        if (GUILayout.Button("Clear"))
+        {
+            Clear();
+        }
+        EditorGUILayout.EndHorizontal();
+
+
+        EditorGUILayout.EndVertical();
+        Select();
     }
 
 
@@ -54,7 +86,7 @@ public abstract class SerialisedGameObjectEditor<T> : Editor where T : SD_Base
     {
         base.OnInspectorGUI();
         serializedObject.Update();
-        SelectData();
+        DisplayOptions();
         serializedObject.ApplyModifiedProperties();
     }
 }

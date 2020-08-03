@@ -6,7 +6,6 @@ using UnityEngine;
 public abstract class SD_Character : SD_Base
 {
     public string IconPath;
-    public Material TestMaterial;
     public int MovementRange;
     public int Initiative;
 
@@ -15,6 +14,9 @@ public abstract class SD_Character : SD_Base
     public override void CreateData()
     {
         base.CreateData();
+
+        EditorGUILayout.LabelField("Character", EditorStyles.boldLabel);
+        EditorGUILayout.BeginVertical();
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.PrefixLabel("Icon");
 
@@ -35,6 +37,9 @@ public abstract class SD_Character : SD_Base
             IconPath = string.Empty;
 
         EditorGUILayout.EndHorizontal();
+        MovementRange = EditorGUILayout.IntField("Movement Range", MovementRange);
+        Initiative = EditorGUILayout.IntField("Initiative", Initiative);
+        EditorGUILayout.EndVertical();
 
     }
 }

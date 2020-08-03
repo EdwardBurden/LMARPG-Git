@@ -18,7 +18,7 @@ public class PlayerCharcater : BaseCharacter
     public override void Start()
     {
         base.Start();
-        this.GetComponent<MeshRenderer>().material = GetCharacterData.TestMaterial;
+
         this.name = GetCharacterData.DisplayName;
     }
 

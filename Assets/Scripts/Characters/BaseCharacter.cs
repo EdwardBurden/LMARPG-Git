@@ -58,6 +58,7 @@ public abstract class BaseCharacter : SerialisedGameObject
             yield return 0;
 
         }
+        yield return null;
     }
 
 

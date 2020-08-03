@@ -4,12 +4,17 @@ using UnityEditor;
 using UnityEngine;
 
 
-[CustomEditor(typeof(PlayerCharcater), true)]
-public class NPCCharacterEditor : SerialisedGameObjectEditor<SD_PlayerCharacter>
+[CustomEditor(typeof(NPCCharacter), true)]
+public class NPCCharacterEditor : SerialisedGameObjectEditor<SD_NPCCharacter>
 {
     public override void OpenNew()
     {
-        CreateNewDataWindow.OpenWindow<SD_PlayerCharacter>();
+        CreateNewDataWindow.OpenNewWindow<SD_NPCCharacter>((NPCCharacter)target);
+    }
+
+    public override void OpenView(SD_NPCCharacter data)
+    {
+        ViewDataWindow.OpenViewWindow<SD_NPCCharacter>((NPCCharacter)target, data);
     }
 }
 
