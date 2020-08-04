@@ -14,7 +14,7 @@ public class NPCCharacterEditor : SerialisedGameObjectEditor<SD_NPCCharacter>
 
     public override void OpenView(SD_NPCCharacter data)
     {
-        ViewDataWindow.OpenViewWindow<SD_NPCCharacter>((NPCCharacter)target, data);
+        ViewDataWindow.OpenViewWindow((NPCCharacter)target, data);
     }
 }
 

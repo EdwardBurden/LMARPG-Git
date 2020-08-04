@@ -15,7 +15,7 @@ public class PlayerCharcaterEditor : SerialisedGameObjectEditor<SD_PlayerCharact
 
     public override void OpenView(SD_PlayerCharacter data)
     {
-        ViewDataWindow.OpenViewWindow<SD_PlayerCharacter>((PlayerCharcater)target, data);
+        ViewDataWindow.OpenViewWindow((PlayerCharcater)target, data);
     }
 }
 

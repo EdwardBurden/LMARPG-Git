@@ -68,7 +68,6 @@ MonoBehaviour:
   Width: 30
   Depth: 30
   GridSize: 2
-  MaxAlignmentDistance: 100
 --- !u!114 &3371012192340726501
 MonoBehaviour:
   m_ObjectHideFlags: 0

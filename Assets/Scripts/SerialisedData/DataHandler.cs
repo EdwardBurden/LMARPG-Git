@@ -22,6 +22,27 @@ public static class DataHandler
         return (T)desObject;
     }
 
+
+    public static T SearchAndImportByName<T>(string id) where T : SD_Base //change to data base
+    {
+        T returnValue = null;
+        Type providedtype = typeof(T);
+        foreach (var item in Utils.GetDerivedTypes(providedtype))
+        {
+            string folderpath = Path.Combine(ProjectAssetRoute, item.ToString());
+            if (Directory.Exists(folderpath))
+            {
+                string path = Path.Combine(ProjectAssetRoute, item.ToString(), id + Extension);
+                if (File.Exists(path))
+                {
+                    returnValue = Import<T>(path);
+                }
+            }
+
+        }
+        return returnValue;
+    }
+
     public static T ImportByName<T>(string id) where T : SD_Base //change to data base
     {
         string path = Path.Combine(ProjectAssetRoute, typeof(T).ToString(), id + Extension);
@@ -39,7 +60,7 @@ public static class DataHandler
     {
         List<T> data = new List<T>();
         Type providedtype = typeof(T);
-        foreach (var item in Assembly.GetAssembly(providedtype).GetTypes().Where(myType => myType.IsClass && !myType.IsAbstract && (myType.IsSubclassOf(providedtype) || myType == providedtype)))
+        foreach (var item in Utils.GetDerivedTypes(providedtype))
         {
             string path = Path.Combine(ProjectAssetRoute, item.ToString());
             if (Directory.Exists(path))

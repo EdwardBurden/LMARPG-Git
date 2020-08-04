@@ -8,7 +8,7 @@ public class InteractableObject : SerialisedGameObject
 
     public override void InitData()
     {
-        ItemData = DataHandler.ImportByName<SD_Item>(DataReferanceID);
+        ItemData = DataHandler.SearchAndImportByName<SD_Item>(DataReferanceID);
     }
 
     private void OnTriggerEnter(Collider other)

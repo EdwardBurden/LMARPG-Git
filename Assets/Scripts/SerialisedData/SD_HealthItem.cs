@@ -10,4 +10,9 @@ public class SD_HealthItem : SD_Item
     {
         playerCharacter.Health += HealthRecovered;
     }
+
+    public override void CreateData()
+    {
+        //base.CreateData();
+    }
 }

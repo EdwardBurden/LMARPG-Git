@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ViewDataWindow : DataWindow
 {
-    public static void OpenViewWindow<T>(SerialisedGameObject serialisedGameObject, SD_Base data) where T : SD_Base
+    public static void OpenViewWindow(SerialisedGameObject serialisedGameObject, SD_Base data)
     {
         ViewDataWindow window = (ViewDataWindow)GetWindow(typeof(ViewDataWindow));
         DataModel = data;

@@ -20,6 +20,11 @@ public abstract class SD_Character : SD_Base
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.PrefixLabel("Icon");
 
+        if (!string.IsNullOrWhiteSpace(IconPath))
+        {
+            EditorIcon = Resources.Load<Sprite>(IconPath);
+        }
+
         EditorIcon = (Sprite)EditorGUILayout.ObjectField(EditorIcon, typeof(Sprite), allowSceneObjects: true);
         if (EditorIcon != null)
         {
@@ -37,9 +42,9 @@ public abstract class SD_Character : SD_Base
             IconPath = string.Empty;
 
         EditorGUILayout.EndHorizontal();
-        MovementRange = EditorGUILayout.IntField("Movement Range", MovementRange);
+        MovementRange = (int)EditorGUILayout.Slider("MovementRange", MovementRange, 1, 10);
         Initiative = EditorGUILayout.IntField("Initiative", Initiative);
         EditorGUILayout.EndVertical();
-
+        EditorGUILayout.Space(10);
     }
 }

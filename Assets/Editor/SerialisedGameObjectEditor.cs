@@ -7,13 +7,24 @@ using UnityEngine;
 public abstract class SerialisedGameObjectEditor<T> : Editor where T : SD_Base
 {
     bool showSelection = false;
-    T SelectedData;
+
     SerializedProperty SelectedId;
+    string Name;
+    T _Data;
+    T SelectedData
+    {
+        get
+        {
+            if (_Data == null)
+                _Data = DataHandler.SearchAndImportByName<T>(SelectedId.stringValue);
+            return _Data;
+        }
+        set { _Data = value; }
+    }
 
     private void OnEnable()
     {
         SelectedId = serializedObject.FindProperty("DataReferanceID");
-        SelectedData = DataHandler.ImportByName<T>(SelectedId.stringValue);
     }
 
     public abstract void OpenNew();
@@ -30,10 +41,11 @@ public abstract class SerialisedGameObjectEditor<T> : Editor where T : SD_Base
             EditorGUILayout.BeginVertical();
             foreach (var item in datas)
             {
-                if (GUILayout.Button(item.DisplayName))
+                if (GUILayout.Button(item.DisplayName + ":" + item.GetType().ToString()))
                 {
-                    SelectedData = item;
                     SelectedId.stringValue = item.ID;
+                    showSelection = false;
+                    SelectedData = null;
                 }
             }
             EditorGUILayout.EndVertical();
@@ -42,7 +54,6 @@ public abstract class SerialisedGameObjectEditor<T> : Editor where T : SD_Base
 
     private void Clear()
     {
-        SelectedData = null;
         SelectedId.stringValue = null;
     }
 
@@ -50,6 +61,8 @@ public abstract class SerialisedGameObjectEditor<T> : Editor where T : SD_Base
     {
         EditorGUILayout.Space(20);
         EditorGUILayout.LabelField("Data", EditorStyles.largeLabel);
+        string display = SelectedData == null ? "No Data Selected" : SelectedData.DisplayName;
+        EditorGUILayout.LabelField(display);
         EditorGUILayout.BeginVertical();
 
 
@@ -61,6 +74,7 @@ public abstract class SerialisedGameObjectEditor<T> : Editor where T : SD_Base
         if (GUILayout.Button("New"))
         {
             OpenNew();
+            showSelection = false;
         }
         EditorGUILayout.EndHorizontal();
 
@@ -69,10 +83,12 @@ public abstract class SerialisedGameObjectEditor<T> : Editor where T : SD_Base
         if (GUILayout.Button("View"))
         {
             OpenView(SelectedData);
+            showSelection = false;
         }
         if (GUILayout.Button("Clear"))
         {
             Clear();
+            showSelection = false;
         }
         EditorGUILayout.EndHorizontal();
 
