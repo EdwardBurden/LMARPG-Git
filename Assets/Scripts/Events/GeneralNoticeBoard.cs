@@ -9,6 +9,10 @@ public static class GeneralNoticeBoard
     public const string StartBattleKey = "StartBattle";
     public const string EndBattleKey = "EndBattle";
     public const string AddNPCToBattleKey = "AddToBattle";
+
+    public const string OpenInteractionPanel = "OpenInteraction";
+    public const string CloseInteractionPanel = "CloseInteraction";
+
     private static Dictionary<string, ReadingList<GameObject>> GameObjectDictionary = new Dictionary<string, ReadingList<GameObject>>();
 
     private class Reader<T>

@@ -20,11 +20,11 @@ public static class StaticFunctions
         }
     }
 
-    public static RaycastHit CheckIfObjectIsInFocus(string tag, bool allowBlock)
+    public static RaycastHit CheckIfObjectIsInFocus(string tag, LayerMask layer, bool allowBlock)
     {
         RaycastHit hit = new RaycastHit();
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit[] raycasts = Physics.RaycastAll(ray);
+        RaycastHit[] raycasts = Physics.RaycastAll(ray, 1000, layer);
         raycasts = raycasts.Where(x => allowBlock || x.collider.gameObject.CompareTag(tag)).OrderBy(x => x.distance).ToArray();
 
         if (raycasts.Length > 0 && raycasts[0].collider.gameObject.CompareTag(tag))
@@ -34,13 +34,13 @@ public static class StaticFunctions
         return hit;
     }
 
-    public static RayCastInfo<T> CheckIfObjectIsInFocus<T>(bool allowBlock) where T : MonoBehaviour
+    public static RayCastInfo<T> CheckIfObjectIsInFocus<T>(LayerMask layer, bool allowBlock) where T : MonoBehaviour
     {
         RaycastHit hit = new RaycastHit();
         bool inSight = false;
         T foundObject = null;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit[] raycasts = Physics.RaycastAll(ray);
+        RaycastHit[] raycasts = Physics.RaycastAll(ray, 1000, layer);
 
         raycasts = raycasts.Where(x => allowBlock || x.collider.gameObject.GetComponent<T>()).OrderBy(x => x.distance).ToArray();
         if (raycasts.Length > 0 && raycasts[0].collider.gameObject.GetComponent<T>())

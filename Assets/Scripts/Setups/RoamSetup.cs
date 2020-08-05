@@ -6,9 +6,36 @@ using UnityEngine;
 public class RoamSetup : BaseSetup
 {
     [SerializeField] RoamInputManager Input;
-    private PartyUI UI;
-    [SerializeField] PartyUI UIPrefab;
+    private PartyUI PartyUI;
+    private InteractionalPanelUI InteractionUI;
+    [SerializeField] PartyUI PartyUIPrefab;
+    [SerializeField] InteractionalPanelUI InteractionPanelUIPrefab;
     private PartyController PartyRewf;
+
+    public void Awake()
+    {
+        GeneralNoticeBoard.AwaitMessageGamobject(GeneralNoticeBoard.OpenInteractionPanel, OpenInteractionPanel, this);
+        GeneralNoticeBoard.AwaitMessageGamobject(GeneralNoticeBoard.CloseInteractionPanel, CloseInteractionPanel, this);
+    }
+
+    private void OpenInteractionPanel(GameObject interactobject)
+    {
+        InteractableObject IObject = interactobject.GetComponent<InteractableObject>();
+        CloseInteractionPanel(interactobject);
+        InteractionUI = Instantiate(InteractionPanelUIPrefab , IObject.transform);
+        InteractionUI.Init(IObject ,GameManager.Instance.ActivePlayer );
+
+    }
+
+
+    private void CloseInteractionPanel(GameObject interactobject)
+    {
+        if (InteractionUI != null)
+        {
+            Destroy(InteractionUI.gameObject);
+        }
+
+    }
 
     public override void Activate()
     {
@@ -16,14 +43,15 @@ public class RoamSetup : BaseSetup
         Input.MoveCharcater += MoveCharacter;
         Input.MoveToInteract += MoveToInteract;
         Input.ChangeSelectCharacter(GameManager.Instance.ActivePlayer);
-        UI = Instantiate(UIPrefab);
-        UI.Init(GameManager.Instance.Players, this);
+        PartyUI = Instantiate(PartyUIPrefab);
+        PartyUI.Init(GameManager.Instance.Players, this);
         ChangeCharacter(GameManager.Instance.ActivePlayer);
     }
 
     public override void Deactivate()
     {
-        Destroy(UI.gameObject);
+        Destroy(PartyUI.gameObject);
+        Destroy(InteractionUI.gameObject);
     }
 
     public override BaseInputManager GetActiveInput()

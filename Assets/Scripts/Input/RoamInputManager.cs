@@ -6,7 +6,8 @@ using static StaticFunctions;
 
 public class RoamInputManager : BaseInputManager
 {
-    [SerializeField] protected Texture2D InteractTexure;
+    [SerializeField] private LayerMask InteractableLayer;
+    [SerializeField] private Texture2D InteractTexure;
     private RoamSetup Setup;
 
     public void Init(RoamSetup setup)
@@ -23,14 +24,14 @@ public class RoamInputManager : BaseInputManager
         {
             if (SelectedPlayerCharacter)
             {
-                RayCastInfo<InteractableObject> HoverObject = CheckIfObjectIsInFocus<InteractableObject>(true);
+                RayCastInfo<InteractableObject> HoverObject = CheckIfObjectIsInFocus<InteractableObject>(InteractableLayer, true);
                 if (HoverObject.Focused)
                 {
                     MoveToInteract(SelectedPlayerCharacter, HoverObject.FocusObject);
                 }
                 else
                 {
-                    RaycastHit floorHit = CheckIfObjectIsInFocus("Floor", true);
+                    RaycastHit floorHit = CheckIfObjectIsInFocus(Constants.FloorTag, FloorDetectionTarget, true);
                     if (floorHit.collider != null)
                     {
                         MoveCharcater(SelectedPlayerCharacter, floorHit.point);
@@ -44,7 +45,7 @@ public class RoamInputManager : BaseInputManager
     {
         if (SelectedPlayerCharacter)
         {
-            RayCastInfo<InteractableObject> HoverObject = CheckIfObjectIsInFocus<InteractableObject>(true);
+            RayCastInfo<InteractableObject> HoverObject = CheckIfObjectIsInFocus<InteractableObject>(InteractableLayer, true);
             if (HoverObject.Focused)
             {
                 Cursor.SetCursor(InteractTexure, Vector2.zero, CursorMode.Auto);
@@ -52,7 +53,7 @@ public class RoamInputManager : BaseInputManager
             }
             else
             {
-                RaycastHit floorHit = CheckIfObjectIsInFocus("Floor", true);
+                RaycastHit floorHit = CheckIfObjectIsInFocus(Constants.FloorTag, FloorDetectionTarget, true);
                 if (floorHit.collider != null)
                 {
                     Cursor.SetCursor(SuccessTexture, Vector2.zero, CursorMode.Auto);

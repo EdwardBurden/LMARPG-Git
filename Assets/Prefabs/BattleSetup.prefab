@@ -45,6 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69b14d02ff322eb468852f5dd87249d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FloorDetectionTarget:
+    serializedVersion: 2
+    m_Bits: 512
   SuccessTexture: {fileID: 2800000, guid: f4b5c663d9e5d44a59179f2aea85db6f, type: 3}
   FailureTexture: {fileID: 2800000, guid: 9885ed2f3cf44473b80a17abb6fceba4, type: 3}
 --- !u!114 &9125062530303255472

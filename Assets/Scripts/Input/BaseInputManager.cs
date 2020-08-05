@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class BaseInputManager : MonoBehaviour
 {
-
+    [SerializeField] protected LayerMask FloorDetectionTarget;
     [SerializeField] protected Texture2D SuccessTexture;
     [SerializeField] protected Texture2D FailureTexture;
     protected BaseCharacter SelectedPlayerCharacter;

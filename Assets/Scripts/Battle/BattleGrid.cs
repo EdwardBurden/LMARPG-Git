@@ -62,7 +62,7 @@ public class BattleGrid : MonoBehaviour
                 Vector3 rayCastOrigin = new Vector3(flatPosition.x, this.transform.position.y + RaycastHeight, flatPosition.y);
                 RaycastHit floorHit;
                 bool hit = Physics.Raycast(rayCastOrigin, Vector3.down, out floorHit, 100, FloorOnlyLayerMask);
-                bool walkable = hit && floorHit.collider.gameObject.tag == "Floor" && !Physics.CheckSphere(floorHit.point + new Vector3(0, GridSize, 0), GridSize, StaticObstaclesLayerMask);
+                bool walkable = hit && floorHit.collider.gameObject.tag == Constants.FloorTag && !Physics.CheckSphere(floorHit.point + new Vector3(0, GridSize, 0), GridSize, StaticObstaclesLayerMask);
                 Vector3 heightPos;
                 if (walkable)
                 {

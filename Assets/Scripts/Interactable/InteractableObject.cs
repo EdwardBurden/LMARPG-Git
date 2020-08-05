@@ -1,29 +1,40 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class InteractableObject : SerialisedGameObject
 {
+    public Dictionary<string, Action<PlayerCharcater>> InteractionActions;
+
+
     protected virtual void Awake()
     {
         InitialiseData<SD_Item>();
+
+        InteractionActions = new Dictionary<string, Action<PlayerCharcater>>()
+        {
+            { "Pickup Item", PickupItem },
+            { "Use Item", UseItem },
+            { "Destroy Item", DestroyItem }
+        };
     }
 
     private void OnTriggerEnter(Collider other)
     {
         PlayerCharcater pChar = other.GetComponent<PlayerCharcater>();
-        if (pChar != null)
+        if (pChar != null && pChar == GameManager.Instance.ActivePlayer)
         {
-            //spawnUI
+            GeneralNoticeBoard.PostMessageGameobject(GeneralNoticeBoard.OpenInteractionPanel, this.gameObject);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        //destryui
+        GeneralNoticeBoard.PostMessageGameobject(GeneralNoticeBoard.CloseInteractionPanel, this.gameObject);
     }
 
-    public void Pickup(PlayerCharcater playerCharcater)
+    public void PickupItem(PlayerCharcater playerCharcater)
     {
         Destroy(this.gameObject);
     }
@@ -33,4 +44,8 @@ public class InteractableObject : SerialisedGameObject
         ((SD_Item)ConstantData).UseItem(playerCharcater);
     }
 
+    public void DestroyItem(PlayerCharcater playerCharcater)
+    {
+        throw new System.NotImplementedException();
+    }
 }

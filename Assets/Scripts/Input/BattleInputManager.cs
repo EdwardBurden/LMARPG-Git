@@ -25,7 +25,7 @@ public class BattleInputManager : BaseInputManager
         {
             if (SelectedPlayerCharacter)
             {
-                RaycastHit floorHit = CheckIfObjectIsInFocus("Floor" , true);
+                RaycastHit floorHit = CheckIfObjectIsInFocus(Constants.FloorTag, FloorDetectionTarget, true);
                 if (floorHit.collider != null)
                 {
                     Setup.InputClick(HoverPoint, SelectedPlayerCharacter);
@@ -49,7 +49,7 @@ public class BattleInputManager : BaseInputManager
 
     protected override void HandleHover()
     {
-        RaycastHit floorHit = CheckIfObjectIsInFocus("Floor", true);
+        RaycastHit floorHit = CheckIfObjectIsInFocus(Constants.FloorTag, FloorDetectionTarget, true);
         if (floorHit.collider != null)
         {
             HoverPoint = floorHit.point;

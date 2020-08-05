@@ -131,7 +131,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 821ce2aedf1534c9daa43c1dd8a0b321, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DataReferanceID: 
+  DataReferanceID: NPC1
+  Health: 0
   WalkingParticlePrefab: {fileID: 3793052160158829332, guid: f9ec26573d3cd46f98dbac634ac8572f,
     type: 3}
   WalkingSoundPrefab: {fileID: 9073498505380807075, guid: 5337d30df822942b899f146d38528ffc,
