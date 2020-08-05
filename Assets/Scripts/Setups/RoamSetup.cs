@@ -22,8 +22,8 @@ public class RoamSetup : BaseSetup
     {
         InteractableObject IObject = interactobject.GetComponent<InteractableObject>();
         CloseInteractionPanel(interactobject);
-        InteractionUI = Instantiate(InteractionPanelUIPrefab , IObject.transform);
-        InteractionUI.Init(IObject ,GameManager.Instance.ActivePlayer );
+        InteractionUI = Instantiate(InteractionPanelUIPrefab, IObject.transform);
+        InteractionUI.Init(IObject, GameManager.Instance.ActivePlayer);
 
     }
 
@@ -50,8 +50,10 @@ public class RoamSetup : BaseSetup
 
     public override void Deactivate()
     {
-        Destroy(PartyUI.gameObject);
-        Destroy(InteractionUI.gameObject);
+        if (PartyUI != null)
+            Destroy(PartyUI.gameObject);
+        if (InteractionUI != null)
+            Destroy(InteractionUI.gameObject);
     }
 
     public override BaseInputManager GetActiveInput()

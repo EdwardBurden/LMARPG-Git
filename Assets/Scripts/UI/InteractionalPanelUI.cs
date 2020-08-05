@@ -16,4 +16,9 @@ public class InteractionalPanelUI : MonoBehaviour
             gameObject.GetComponentInChildren<Text>().text = action.Key;
         }
     }
+
+    private void Update()
+    {
+        this.transform.rotation = Quaternion.LookRotation(this.transform.position - Camera.main.transform.position, Vector3.up);
+    }
 }

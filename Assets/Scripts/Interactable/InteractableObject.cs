@@ -31,7 +31,11 @@ public class InteractableObject : SerialisedGameObject
 
     private void OnTriggerExit(Collider other)
     {
-        GeneralNoticeBoard.PostMessageGameobject(GeneralNoticeBoard.CloseInteractionPanel, this.gameObject);
+        PlayerCharcater pChar = other.GetComponent<PlayerCharcater>();
+        if (pChar != null && pChar == GameManager.Instance.ActivePlayer)
+        {
+            GeneralNoticeBoard.PostMessageGameobject(GeneralNoticeBoard.CloseInteractionPanel, this.gameObject);
+        }
     }
 
     public void PickupItem(PlayerCharcater playerCharcater)

@@ -4395,7 +4395,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 796094447}
   m_LocalRotation: {x: 0.2620181, y: -0.7379115, z: 0.4456834, w: 0.43381962}
-  m_LocalPosition: {x: 20.5, y: 31, z: 12}
+  m_LocalPosition: {x: 9, y: 22.25, z: 5.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -12349,18 +12349,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1004423052873252735, guid: 060296b0717ffdd4eb1850c2640b0d0c,
-        type: 3}
-      propertyPath: PartyUIPrefab
-      value: 
-      objectReference: {fileID: 7781205918145751692, guid: f5aa8e0ce43a847f1adb3f611c436842,
-        type: 3}
-    - target: {fileID: 1004423052873252735, guid: 060296b0717ffdd4eb1850c2640b0d0c,
-        type: 3}
-      propertyPath: InteractionPanelUIPrefab
-      value: 
-      objectReference: {fileID: 3522813050895510345, guid: 377ce4dd21d934c57b84de183529fb27,
-        type: 3}
     - target: {fileID: 5497489052854390434, guid: 060296b0717ffdd4eb1850c2640b0d0c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -12420,11 +12408,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RoamSetup
-      objectReference: {fileID: 0}
-    - target: {fileID: 5497489052854390437, guid: 060296b0717ffdd4eb1850c2640b0d0c,
-        type: 3}
-      propertyPath: InteractableLayer.m_Bits
-      value: 2048
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 060296b0717ffdd4eb1850c2640b0d0c, type: 3}

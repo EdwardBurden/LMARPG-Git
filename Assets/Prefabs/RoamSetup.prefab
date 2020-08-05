@@ -51,7 +51,7 @@ MonoBehaviour:
   FailureTexture: {fileID: 2800000, guid: a513d1925deb0bb4da5591b5dad16a35, type: 3}
   InteractableLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2048
   InteractTexure: {fileID: 2800000, guid: 2fa24efd7489f4777a2ffbe4b2284f7c, type: 3}
 --- !u!114 &1004423052873252735
 MonoBehaviour:
@@ -66,5 +66,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Input: {fileID: 5497489052854390437}
-  UIPrefab: {fileID: 7781205918145751692, guid: f5aa8e0ce43a847f1adb3f611c436842,
+  PartyUIPrefab: {fileID: 7781205918145751692, guid: f5aa8e0ce43a847f1adb3f611c436842,
+    type: 3}
+  InteractionPanelUIPrefab: {fileID: 3522813050895510345, guid: 377ce4dd21d934c57b84de183529fb27,
     type: 3}
