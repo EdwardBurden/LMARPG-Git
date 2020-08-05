@@ -6,19 +6,17 @@ using System;
 
 public class PlayerCharcater : BaseCharacter
 {
-    public SD_PlayerCharacter PlayerData;
+    public override SD_Character GetCharacterData { get => (SD_PlayerCharacter)ConstantData; set => ConstantData = (SD_PlayerCharacter)value; }
 
-    public override SD_Character GetCharacterData { get => PlayerData; set => PlayerData = (SD_PlayerCharacter)value; }
-
-    public override void InitData()
+    private void Awake()
     {
-        PlayerData = DataHandler.ImportByName<SD_PlayerCharacter>(DataReferanceID);
+        InitialiseData<SD_PlayerCharacter>();
     }
+
 
     public override void Start()
     {
         base.Start();
-
         this.name = GetCharacterData.DisplayName;
     }
 

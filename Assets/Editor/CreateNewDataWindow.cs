@@ -27,7 +27,7 @@ public class CreateNewDataWindow : DataWindow
         CreateNewDataWindow window = (CreateNewDataWindow)GetWindow(typeof(CreateNewDataWindow));
         BaseType = typeselect;
         TypeSelection = true;
-        DerivedTypes = Utils.GetDerivedTypes(BaseType);
+        DerivedTypes = StaticFunctions.GetDerivedTypes(BaseType);
         Target = serialisedGameObject;
         window.Show();
     }

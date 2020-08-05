@@ -7,14 +7,12 @@ public class NPCCharacter : BaseCharacter
 {
     public Transform HomePoint;
     public BattleTrigger Battle { get; private set; }
-
-    public SD_NPCCharacter Data;
-    public override SD_Character GetCharacterData { get => Data; set => Data = (SD_NPCCharacter)value; }
+    public override SD_Character GetCharacterData { get => (SD_NPCCharacter)ConstantData; set => ConstantData = (SD_NPCCharacter)value; }
     [SerializeField] private NPCStateMachine Statemachine;
 
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
+        InitialiseData<SD_NPCCharacter>();
         GeneralNoticeBoard.AwaitMessageGamobject(GeneralNoticeBoard.StartBattleKey, BattleStarted, this);
         GeneralNoticeBoard.AwaitMessageGamobject(GeneralNoticeBoard.EndBattleKey, BattleEnded, this);
         InitStateMachine();
@@ -54,10 +52,5 @@ public class NPCCharacter : BaseCharacter
             { typeof(BattleState) , new BattleState(this)}
         };
         Statemachine.InitStateMachine(startes, typeof(WanderState));
-    }
-
-    public override void InitData()
-    {
-        Data = DataHandler.ImportByName<SD_NPCCharacter>(DataReferanceID);
     }
 }

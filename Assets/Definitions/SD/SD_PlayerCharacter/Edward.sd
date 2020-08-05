@@ -1,1 +1,1 @@
-{"$type":"SD_PlayerCharacter, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","Greeting":null,"IconPath":"Textures/PlayerCharacterIcons/Icon4","MovementRange":10,"Initiative":5,"ID":"Edward","DisplayName":"Edward Burdenlof"}
+{"$type":"SD_PlayerCharacter, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","Greeting":"Hello","IconPath":"Textures/PlayerCharacterIcons/Icon4","MovementRange":10,"Initiative":5,"ID":"Edward","DisplayName":"Edward Burdenlof"}

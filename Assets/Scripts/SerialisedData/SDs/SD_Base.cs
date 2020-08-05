@@ -26,8 +26,8 @@ public abstract class SD_Base
         EditorGUILayout.Space(10);
     }
 
-    public bool ValidateModel()
+    public virtual bool ValidateModel()
     {
-      return  true;
+        return !(string.IsNullOrWhiteSpace(ID) || string.IsNullOrWhiteSpace(DisplayName));
     }
 }

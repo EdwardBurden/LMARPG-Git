@@ -6,13 +6,16 @@ using static StaticFunctions;
 
 public class RoamInputManager : BaseInputManager
 {
+    [SerializeField] protected Texture2D InteractTexure;
     private RoamSetup Setup;
 
     public void Init(RoamSetup setup)
     {
         Setup = setup;
     }
-    public Action<BaseCharacter,Vector3> MoveCharcater;
+
+    public Action<BaseCharacter, Vector3> MoveCharcater;
+    public Action<BaseCharacter, InteractableObject> MoveToInteract;
 
     protected override void HandleClick()
     {
@@ -20,10 +23,18 @@ public class RoamInputManager : BaseInputManager
         {
             if (SelectedPlayerCharacter)
             {
-                RaycastHit floorHit = CheckIfObjectIsInFocus("Floor");
-                if (floorHit.collider != null)
+                RayCastInfo<InteractableObject> HoverObject = CheckIfObjectIsInFocus<InteractableObject>(true);
+                if (HoverObject.Focused)
                 {
-                    MoveCharcater(SelectedPlayerCharacter, floorHit.point);
+                    MoveToInteract(SelectedPlayerCharacter, HoverObject.FocusObject);
+                }
+                else
+                {
+                    RaycastHit floorHit = CheckIfObjectIsInFocus("Floor", true);
+                    if (floorHit.collider != null)
+                    {
+                        MoveCharcater(SelectedPlayerCharacter, floorHit.point);
+                    }
                 }
             }
         }
@@ -33,15 +44,25 @@ public class RoamInputManager : BaseInputManager
     {
         if (SelectedPlayerCharacter)
         {
-            RaycastHit floorHit = CheckIfObjectIsInFocus("Floor");
-            if (floorHit.collider != null)
+            RayCastInfo<InteractableObject> HoverObject = CheckIfObjectIsInFocus<InteractableObject>(true);
+            if (HoverObject.Focused)
             {
-                Cursor.SetCursor(SuccessTexture, Vector2.zero, CursorMode.Auto);
+                Cursor.SetCursor(InteractTexure, Vector2.zero, CursorMode.Auto);
+
             }
             else
             {
-                Cursor.SetCursor(FailureTexture, Vector2.zero, CursorMode.Auto);
+                RaycastHit floorHit = CheckIfObjectIsInFocus("Floor", true);
+                if (floorHit.collider != null)
+                {
+                    Cursor.SetCursor(SuccessTexture, Vector2.zero, CursorMode.Auto);
+                }
+                else
+                {
+                    Cursor.SetCursor(FailureTexture, Vector2.zero, CursorMode.Auto);
+                }
             }
+
         }
         else
         {

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(SerialisedGameObject))]
 public abstract class SerialisedGameObjectEditor<T> : Editor where T : SD_Base
 {
     bool showSelection = false;
@@ -25,6 +24,7 @@ public abstract class SerialisedGameObjectEditor<T> : Editor where T : SD_Base
     private void OnEnable()
     {
         SelectedId = serializedObject.FindProperty("DataReferanceID");
+        _Data = null;
     }
 
     public abstract void OpenNew();
@@ -45,7 +45,7 @@ public abstract class SerialisedGameObjectEditor<T> : Editor where T : SD_Base
                 {
                     SelectedId.stringValue = item.ID;
                     showSelection = false;
-                    SelectedData = null;
+                    _Data = null;
                 }
             }
             EditorGUILayout.EndVertical();
@@ -55,6 +55,7 @@ public abstract class SerialisedGameObjectEditor<T> : Editor where T : SD_Base
     private void Clear()
     {
         SelectedId.stringValue = null;
+        _Data = null;
     }
 
     public virtual void DisplayOptions()

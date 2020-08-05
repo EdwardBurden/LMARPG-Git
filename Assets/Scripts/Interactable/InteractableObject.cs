@@ -4,21 +4,23 @@ using UnityEngine;
 
 public class InteractableObject : SerialisedGameObject
 {
-    public SD_Item ItemData;
-
-    public override void InitData()
+    protected virtual void Awake()
     {
-        ItemData = DataHandler.SearchAndImportByName<SD_Item>(DataReferanceID);
+        InitialiseData<SD_Item>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        
+        PlayerCharcater pChar = other.GetComponent<PlayerCharcater>();
+        if (pChar != null)
+        {
+            //spawnUI
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        
+        //destryui
     }
 
     public void Pickup(PlayerCharcater playerCharcater)
@@ -28,7 +30,7 @@ public class InteractableObject : SerialisedGameObject
 
     public void UseItem(PlayerCharcater playerCharcater)
     {
-        ItemData.UseItem(playerCharcater);
+        ((SD_Item)ConstantData).UseItem(playerCharcater);
     }
 
 }

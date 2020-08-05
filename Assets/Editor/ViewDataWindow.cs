@@ -12,6 +12,7 @@ public class ViewDataWindow : DataWindow
         Target = serialisedGameObject;
         window.Show();
     }
+
     protected override void DrawWindow()
     {
         base.DrawWindow();

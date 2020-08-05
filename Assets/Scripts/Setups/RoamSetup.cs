@@ -14,6 +14,7 @@ public class RoamSetup : BaseSetup
     {
         Input.Init(this);
         Input.MoveCharcater += MoveCharacter;
+        Input.MoveToInteract += MoveToInteract;
         Input.ChangeSelectCharacter(GameManager.Instance.ActivePlayer);
         UI = Instantiate(UIPrefab);
         UI.Init(GameManager.Instance.Players, this);
@@ -46,6 +47,11 @@ public class RoamSetup : BaseSetup
     public void MoveCharacter(BaseCharacter playerCharcater, Vector3 point)
     {
         RoamCharacterHandler.MoveCharacterTo(playerCharcater, point);
+    }
+
+    public void MoveToInteract(BaseCharacter player, InteractableObject clickedObject)
+    {
+        RoamCharacterHandler.MoveCharacterTo(player, clickedObject.transform.position);
     }
 
     private void Update()

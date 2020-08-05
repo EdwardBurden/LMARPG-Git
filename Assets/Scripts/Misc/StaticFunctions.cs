@@ -1,5 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using UnityEngine;
 
 public static class StaticFunctions
@@ -17,57 +20,46 @@ public static class StaticFunctions
         }
     }
 
-    public static RaycastHit CheckIfObjectIsInFocus(string tag)
+    public static RaycastHit CheckIfObjectIsInFocus(string tag, bool allowBlock)
     {
         RaycastHit hit = new RaycastHit();
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        float distance = 10000;
         RaycastHit[] raycasts = Physics.RaycastAll(ray);
-        for (int i = 0; i < raycasts.Length; i++)
-        {
-            if (raycasts[i].distance < distance)
-            {
-                distance = raycasts[i].distance;
-                bool found = raycasts[i].collider.gameObject.CompareTag(tag);
-                if (found)
-                {
-                    hit = raycasts[i];
-                }
+        raycasts = raycasts.Where(x => allowBlock || x.collider.gameObject.CompareTag(tag)).OrderBy(x => x.distance).ToArray();
 
-            }
+        if (raycasts.Length > 0 && raycasts[0].collider.gameObject.CompareTag(tag))
+        {
+            hit = raycasts[0];
         }
         return hit;
     }
 
-    public static RayCastInfo<T> CheckIfObjectIsInFocus<T>() where T : MonoBehaviour
+    public static RayCastInfo<T> CheckIfObjectIsInFocus<T>(bool allowBlock) where T : MonoBehaviour
     {
         RaycastHit hit = new RaycastHit();
         bool inSight = false;
         T foundObject = null;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        float distance = 10000;
         RaycastHit[] raycasts = Physics.RaycastAll(ray);
-        for (int i = 0; i < raycasts.Length; i++)
-        {
-            if (raycasts[i].distance < distance)
-            {
-                distance = raycasts[i].distance;
-                T foundobject = raycasts[i].collider.gameObject.GetComponent<T>();
-                if (foundobject)
-                {
-                    inSight = true;
-                    hit = raycasts[i];
-                    foundObject = foundobject;
-                }
-                else
-                {
-                    inSight = false;
-                }
 
-            }
+        raycasts = raycasts.Where(x => allowBlock || x.collider.gameObject.GetComponent<T>()).OrderBy(x => x.distance).ToArray();
+        if (raycasts.Length > 0 && raycasts[0].collider.gameObject.GetComponent<T>())
+        {
+            inSight = true;
+            hit = raycasts[0];
+            foundObject = raycasts[0].collider.gameObject.GetComponent<T>();
         }
+        else
+        {
+            inSight = false;
+        }
+
         return new RayCastInfo<T>(inSight, hit, foundObject);
     }
 
+    public static List<Type> GetDerivedTypes(Type providedtype)
+    {
+        return Assembly.GetAssembly(providedtype).GetTypes().Where(myType => myType.IsClass && !myType.IsAbstract && (myType.IsSubclassOf(providedtype) || myType == providedtype)).ToList();
+    }
 
 }
