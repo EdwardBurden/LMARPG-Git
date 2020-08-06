@@ -101,7 +101,7 @@ public class BattleGrid : MonoBehaviour
 
     public void GetAvailableMovementNodes(BattleOrder playerCharcater)
     {
-        int maxRange = playerCharcater.Character.GetCharacterData.MovementRange;
+        int maxRange = playerCharcater.Character.GetCharacterData.Dexterity;
         SelectedCharactersMoveableArea = new List<BattleNode>();
         for (int i = -maxRange; i <= maxRange; i++)
         {

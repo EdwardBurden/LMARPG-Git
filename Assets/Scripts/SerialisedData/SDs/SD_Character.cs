@@ -5,11 +5,18 @@ using UnityEngine;
 
 public abstract class SD_Character : SD_Base
 {
+    public int Level;
+    public int Strength = 8;
+    public int Dexterity = 8;
+    public int Constitution = 8;
+    public int Intelligence = 8;
+    public int Wisdom = 8;
+    public int Charisma = 8;
     public string IconPath;
-    public int MovementRange;
-    public int Initiative;
 
     private Sprite EditorIcon;
+    private int SpendPointsStart = 72;
+    private int SpendPointsPerLevel;
 
     public override void CreateData()
     {
@@ -17,6 +24,19 @@ public abstract class SD_Character : SD_Base
 
         EditorGUILayout.LabelField("Character", EditorStyles.boldLabel);
         EditorGUILayout.BeginVertical();
+        Icon();
+        Strength = AbilityButton("St", Strength);
+        Dexterity = AbilityButton("Dex", Dexterity);
+        Constitution = AbilityButton("Con", Constitution);
+        Intelligence = AbilityButton("Int", Intelligence);
+        Wisdom = AbilityButton("Wis", Wisdom);
+        Charisma = AbilityButton("Cha", Charisma);
+        EditorGUILayout.EndVertical();
+        EditorGUILayout.Space(10);
+    }
+
+    private void Icon()
+    {
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.PrefixLabel("Icon");
 
@@ -42,9 +62,31 @@ public abstract class SD_Character : SD_Base
             IconPath = string.Empty;
 
         EditorGUILayout.EndHorizontal();
-        MovementRange = (int)EditorGUILayout.Slider("MovementRange", MovementRange, 1, 10);
-        Initiative = EditorGUILayout.IntField("Initiative", Initiative);
-        EditorGUILayout.EndVertical();
-        EditorGUILayout.Space(10);
+
+    }
+
+    private int AbilityButton(string fieldname, int field)
+    {
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField(fieldname , GUILayout.Width(50));
+        if (GUILayout.Button("-", GUILayout.Width(50)))
+        {
+            field -= 1;
+        }
+        EditorGUI.BeginDisabledGroup(false);
+        field = EditorGUILayout.IntField(field, GUILayout.Width(50));
+        EditorGUI.EndDisabledGroup();
+        if (GUILayout.Button("+", GUILayout.Width(50)) && GetPointsSpent() < SpendPointsStart)
+        {
+            field++;
+        }
+        EditorGUILayout.EndHorizontal();
+        return field;
+    }
+
+    private int GetPointsSpent()
+    {
+        return Strength + Dexterity + Constitution + Intelligence + Wisdom + Charisma;
+
     }
 }

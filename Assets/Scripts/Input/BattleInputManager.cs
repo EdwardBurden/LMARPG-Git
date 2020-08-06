@@ -23,12 +23,15 @@ public class BattleInputManager : BaseInputManager
     {
         if (Input.GetMouseButtonUp(0))
         {
-            if (SelectedPlayerCharacter)
+            if (!IsPointerOverGameObject())
             {
-                RaycastHit floorHit = CheckIfObjectIsInFocus(Constants.FloorTag, FloorDetectionTarget, true);
-                if (floorHit.collider != null)
+                if (SelectedPlayerCharacter)
                 {
-                    Setup.InputClick(HoverPoint, SelectedPlayerCharacter);
+                    RaycastHit floorHit = CheckIfObjectIsInFocus(Constants.FloorTag, FloorDetectionTarget, true);
+                    if (floorHit.collider != null)
+                    {
+                        Setup.InputClick(HoverPoint, SelectedPlayerCharacter);
+                    }
                 }
             }
         }
@@ -50,7 +53,7 @@ public class BattleInputManager : BaseInputManager
     protected override void HandleHover()
     {
         RaycastHit floorHit = CheckIfObjectIsInFocus(Constants.FloorTag, FloorDetectionTarget, true);
-        if (floorHit.collider != null)
+        if (floorHit.collider != null && !IsPointerOverGameObject())
         {
             HoverPoint = floorHit.point;
             Setup.UpdateGridHoverPosition(HoverPoint);

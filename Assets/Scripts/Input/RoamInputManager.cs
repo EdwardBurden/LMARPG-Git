@@ -24,17 +24,21 @@ public class RoamInputManager : BaseInputManager
         {
             if (SelectedPlayerCharacter)
             {
-                RayCastInfo<InteractableObject> HoverObject = CheckIfObjectIsInFocus<InteractableObject>(InteractableLayer, true);
-                if (HoverObject.Focused)
+                if (!IsPointerOverGameObject())
                 {
-                    MoveToInteract(SelectedPlayerCharacter, HoverObject.FocusObject);
-                }
-                else
-                {
-                    RaycastHit floorHit = CheckIfObjectIsInFocus(Constants.FloorTag, FloorDetectionTarget, true);
-                    if (floorHit.collider != null)
+
+                    RayCastInfo<InteractableObject> HoverObject = CheckIfObjectIsInFocus<InteractableObject>(InteractableLayer, true);
+                    if (HoverObject.Focused)
                     {
-                        MoveCharcater(SelectedPlayerCharacter, floorHit.point);
+                        MoveToInteract(SelectedPlayerCharacter, HoverObject.FocusObject);
+                    }
+                    else
+                    {
+                        RaycastHit floorHit = CheckIfObjectIsInFocus(Constants.FloorTag, FloorDetectionTarget, true);
+                        if (floorHit.collider != null)
+                        {
+                            MoveCharcater(SelectedPlayerCharacter, floorHit.point);
+                        }
                     }
                 }
             }
@@ -43,7 +47,7 @@ public class RoamInputManager : BaseInputManager
 
     protected override void HandleHover()
     {
-        if (SelectedPlayerCharacter)
+        if (SelectedPlayerCharacter && !IsPointerOverGameObject())
         {
             RayCastInfo<InteractableObject> HoverObject = CheckIfObjectIsInFocus<InteractableObject>(InteractableLayer, true);
             if (HoverObject.Focused)

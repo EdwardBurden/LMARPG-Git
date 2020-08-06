@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public static class StaticFunctions
 {
@@ -18,6 +19,16 @@ public static class StaticFunctions
             HitInfo = info;
             FocusObject = focusobject;
         }
+    }
+
+    public static bool IsPointerOverGameObject()
+    {
+        PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
+        pointerEventData.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        List<RaycastResult> UiHits = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(pointerEventData, UiHits);
+        return UiHits.Count > 0;
+
     }
 
     public static RaycastHit CheckIfObjectIsInFocus(string tag, LayerMask layer, bool allowBlock)

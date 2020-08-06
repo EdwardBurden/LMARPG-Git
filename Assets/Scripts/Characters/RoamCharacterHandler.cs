@@ -15,7 +15,6 @@ public static class RoamCharacterHandler
     {
         baseCharacter.Follow = true;
         baseCharacter.FollowTarget = gameObject;
-        baseCharacter.StopAllCoroutines();
         baseCharacter.NavMesh.stoppingDistance = 2;
     }
 
