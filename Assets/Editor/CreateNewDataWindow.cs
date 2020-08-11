@@ -42,14 +42,10 @@ public class CreateNewDataWindow : DataWindow
                 DataModel = (SD_Base)Activator.CreateInstance(DerivedTypes[newtype]);
                 SelectedClass = newtype;
             }
-
-
         }
         else
         {
-
             base.DrawWindow();
-
             if (GUILayout.Button("Add"))
             {
                 Add();

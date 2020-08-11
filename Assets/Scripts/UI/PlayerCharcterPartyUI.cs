@@ -14,7 +14,7 @@ public class PlayerCharcterPartyUI : MonoBehaviour
 
     public void Init(SD_Character playerCharacterDefinition)
     {
-        IconImage.sprite = Resources.Load<Sprite>(playerCharacterDefinition.IconPath);
+        IconImage.sprite = playerCharacterDefinition.Icon;
         NameText.text = playerCharacterDefinition.DisplayName;
         HighlightOff();
     }

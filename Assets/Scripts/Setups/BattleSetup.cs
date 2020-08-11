@@ -47,7 +47,7 @@ public class BattleSetup : BaseSetup
         if (!TurnOrders.Exists(x => x.Character == npcCharacter))
         {
             npcCharacter.AddedToBattle();
-            int rollIt = Random.Range(0, 20) + npcCharacter.GetCharacterData.Dexterity;
+            int rollIt = npcCharacter.GetCharacterData.Initaitve;
             int newindex = TurnOrders.Count - 1;
             for (int i = TurnOrders.Count - 1; i >= 0; i--)
             {
@@ -112,7 +112,7 @@ public class BattleSetup : BaseSetup
         if (OrderTurn >= TurnOrders.Count)
             OrderTurn = 0;
         //move camera
-        Grid.GetAvailableMovementNodes(TurnOrders[OrderTurn]);
+        Grid.GetAvailableMovementNodes(TurnOrders[OrderTurn].Character);
         UI.HighlightCurrentPlayer(OrderTurn);
 
         Input.ChangeSelectCharacter(TurnOrders[OrderTurn].Character);
@@ -121,7 +121,7 @@ public class BattleSetup : BaseSetup
 
     private void Update()
     {
-        Grid.GetAvailableMovementNodes(TurnOrders[OrderTurn]);
+        Grid.GetAvailableMovementNodes(TurnOrders[OrderTurn].Character);
     }
 
     public void Combat_EndTurn()
@@ -137,7 +137,7 @@ public class BattleSetup : BaseSetup
         Characters.AddRange(GameManager.Instance.Players);
         foreach (var player in Characters)
         {
-            int rollIt = Random.Range(0, 20) + player.GetCharacterData.Dexterity;
+            int rollIt = player.GetCharacterData.Initaitve;
             TurnOrders.Add(new BattleOrder(player, rollIt));
         }
         TurnOrders = TurnOrders.OrderBy(x => x.Iniative).ToList();

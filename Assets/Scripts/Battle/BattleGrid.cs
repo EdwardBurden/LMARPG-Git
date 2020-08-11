@@ -99,16 +99,16 @@ public class BattleGrid : MonoBehaviour
         }
     }
 
-    public void GetAvailableMovementNodes(BattleOrder playerCharcater)
+    public void GetAvailableMovementNodes(BaseCharacter character)
     {
-        int maxRange = playerCharcater.Character.GetCharacterData.Dexterity;
+        int maxRange = character.GetCharacterData.Speed;
         SelectedCharactersMoveableArea = new List<BattleNode>();
         for (int i = -maxRange; i <= maxRange; i++)
         {
             for (int j = -maxRange; j <= maxRange; j++)
             {
-                int x = (int)playerCharcater.Character.GridArrayPosition.x + i;
-                int z = (int)playerCharcater.Character.GridArrayPosition.y + j;
+                int x = (int)character.GridArrayPosition.x + i;
+                int z = (int)character.GridArrayPosition.y + j;
                 if ((x >= 0 && x < Width) && (z >= 0 && z < Depth))
                 {
                     //float d = Vector3.Distance(CustomGrid[(int)playerCharcater.Character.GridArrayPosition.x, (int)playerCharcater.Character.GridArrayPosition.y].CentrePosition, CustomGrid[x, z].CentrePosition);
