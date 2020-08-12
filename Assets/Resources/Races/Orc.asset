@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3dd695a077f4441478e31a0992305935, type: 3}
-  m_Name: Human
+  m_Name: Orc
   m_EditorClassIdentifier: 
-  RaceName: Human
-  MovementSpeed: 10
+  RaceName: Orc
+  MovementSpeed: 2
   AbilityBonusType: 0
-  AbilityBonusAmount: 2
+  AbilityBonusAmount: 1

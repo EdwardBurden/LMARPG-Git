@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Human
   m_EditorClassIdentifier: 
   RaceName: Human
-  MovementSpeed: 10
-  AbilityBonusType: 0
+  MovementSpeed: 1
+  AbilityBonusType: 5
   AbilityBonusAmount: 2

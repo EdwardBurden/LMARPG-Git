@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum NPCAllegiance
 {
-    Friend,
-    Enemy,
-    Neutral
+    Friendly,
+    Nuetral,
+    Enemy
 }
